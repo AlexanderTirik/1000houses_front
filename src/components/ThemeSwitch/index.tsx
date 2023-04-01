@@ -10,7 +10,7 @@ interface IProps {
 export const ThemeSwitch = ({ className }: IProps) => {
     const [theme, setTheme] = useTheme()
     return (
-        <div className={className + ' row flex'}>
+        <div className={className + ' flex flex-row'}>
             <ThemeOption
                 onClick={() => setTheme('dark')}
                 isActive={theme === 'dark'}
@@ -24,4 +24,3 @@ export const ThemeSwitch = ({ className }: IProps) => {
         </div>
     )
 }
-// 37px to rem

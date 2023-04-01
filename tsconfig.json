@@ -17,7 +17,11 @@
         "jsx": "react-jsx",
         "paths": {
             "@public/*": ["./public/*"],
-            "@assets/*": ["./src/assets/*"]
+            "@components/*": ["./src/components/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@containers/*": ["./src/containers/*"],
+            "@scenes/*": ["./src/scenes/*"],
+            "@hooks/*": ["./src/hooks/*"]
         }
     },
     "include": ["src"],

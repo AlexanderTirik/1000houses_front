@@ -11,7 +11,9 @@ export const LanguageSwitch = ({ className }: IProps) => {
             onClick={() =>
                 i18n.changeLanguage(i18n.language == 'en' ? 'ru' : 'en')
             }
-            className={className + ' row flex items-center dark:text-white'}
+            className={
+                className + ' flex flex-row items-center dark:text-white'
+            }
         >
             <LanguageIcon
                 className="mr-2.5"

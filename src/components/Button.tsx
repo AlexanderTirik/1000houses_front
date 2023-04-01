@@ -5,7 +5,6 @@ interface IProps {
     className?: string
     variant?: 'primary' | 'secondary' | 'tertiary'
     icon?: ReactElement<{ pathClassName?: string; className?: string }>
-    isActive?: boolean
     disabled?: boolean
     onClick: () => void
 }
@@ -14,7 +13,6 @@ export const Button = ({
     children,
     className,
     variant = 'primary',
-    isActive = false,
     disabled = false,
     icon,
     onClick,
@@ -56,7 +54,7 @@ export const Button = ({
             disabled={disabled}
             className={
                 className +
-                ' row flex items-center rounded-full py-2 px-5 ' +
+                ' flex flex-row items-center rounded-full py-2 px-5 ' +
                 styles.button[variant]
             }
             onClick={onClick}

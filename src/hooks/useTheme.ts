@@ -26,6 +26,7 @@ export default function useTheme(): [
         root.classList.remove(colorTheme)
         root.classList.add(theme)
         localStorage.setItem('theme', theme)
+        window.dispatchEvent(new Event('storage'))
     }, [theme, colorTheme])
 
     return [theme, setTheme]
