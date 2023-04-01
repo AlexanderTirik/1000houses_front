@@ -21,21 +21,21 @@ export const Partner = ({ image, name, variant }: IProps) => {
             case 2:
                 return (
                     <DecorationBIcon
-                        className="absolute bottom-[26px]"
+                        className="absolute bottom-[27px]"
                         pathClassName="dark:stroke-[#787878]"
                     />
                 )
             case 3:
                 return (
                     <DecorationCIcon
-                        className="absolute bottom-[17px]"
+                        className="absolute bottom-4"
                         pathClassName="dark:stroke-[#787878]"
                     />
                 )
             case 4:
                 return (
                     <DecorationDIcon
-                        className="absolute bottom-3"
+                        className="absolute bottom-[10px]"
                         pathClassName="dark:stroke-[#787878]"
                     />
                 )
