@@ -5,7 +5,7 @@ interface IProps {
 }
 
 export const FooterList = ({ title, links = [], names }: IProps) => (
-    <div className="flex flex-col">
+    <div className="my-4 flex flex-col lg:my-0">
         <div className="mb-3 font-bold text-black dark:text-white">{title}</div>
         {names.map((name, index) => {
             const link = links[index]

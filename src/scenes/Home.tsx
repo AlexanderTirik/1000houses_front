@@ -6,17 +6,28 @@ import { Header } from '@containers/Header'
 import { PartnersCarousel } from '@containers/PartnersCarousel'
 import { Team } from '@containers/Team'
 import { type ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 const Home = (): ReactElement => {
+    const [t, i18n] = useTranslation()
+
     return (
-        <div className="bg-gray-100 bg-home-light bg-cover bg-repeat-y font-[montserrat] transition dark:bg-light-black dark:bg-home-dark">
+        <div className="bg-gray-100 bg-home-light bg-contain bg-repeat-y transition dark:bg-light-black dark:bg-home-dark lg:bg-cover">
             <Header />
             <Dashboard />
-            <div className="mx-4 flex">
+            <div className="flex flex-col lg:mx-4 lg:flex-row">
                 <LandingButton>
-                    Report on the work of the management company
+                    {
+                        t(
+                            'Report on the work of the management company'
+                        ) as string
+                    }
                 </LandingButton>
-                <LandingButton>Company growth strategy</LandingButton>
-                <LandingButton>How to use the platform</LandingButton>
+                <LandingButton>
+                    {t('Company growth strategy') as string}
+                </LandingButton>
+                <LandingButton>
+                    {t('How to use the platform') as string}
+                </LandingButton>
             </div>
             <AboutProject />
             <Team />

@@ -56,15 +56,15 @@ export const DashboardCell = ({
         <div
             className={
                 className +
-                ' relative m-0.5 flex flex-col overflow-hidden rounded-3xl bg-white p-4 dark:bg-gray-700'
+                ' relative m-0.5 flex flex-col justify-between overflow-hidden rounded-3xl bg-white p-4 dark:bg-gray-700'
             }
         >
             {renderDecoration()}
-            <div className="z-10 mb-5 text-base font-normal uppercase dark:text-white">
+            <div className="z-10 mb-5 text-sm font-normal uppercase dark:text-white lg:text-base">
                 {title}
             </div>
             <div className="z-10">
-                <span className="text-3xl font-semibold dark:text-white">
+                <span className="text-2xl font-semibold dark:text-white lg:text-3xl">
                     {primaryText}
                 </span>
                 {secondaryText ? (

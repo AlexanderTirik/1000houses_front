@@ -1,6 +1,35 @@
 {
     "translation": {
         "language": "En",
-        "Welcome to React": "Welcome to React"
+        "Connect wallet": "Connect wallet",
+        "Sign up": "Sign up",
+        "Login": "Login",
+        "Profitability": "Profitability",
+        "Rental Objects": "Rental Objects",
+        "Hold Time": "Hold Time",
+        "Last Hold Volume": "Last Hold Volume",
+        "per year": "per year",
+        "Current Hold": "Current Hold",
+        "Last Payment Amount": "Last Payment Amount",
+        "Report on the work of the management company": "Report on the work of the management company",
+        "Company growth strategy": "Company growth strategy",
+        "How to use the platform": "How to use the platform",
+        "Team": "Team",
+        "Partners": "Partners",
+        "Contact": "Contact",
+        "Blog": "Blog",
+        "Documentation": "Documentation",
+        "Information": "Information",
+        "Grants": "Grants",
+        "Other": "Other",
+        "Day": "Day",
+        "Week": "Week",
+        "Month": "Month",
+        "Year": "Year",
+        "Welcome": "Welcome",
+        "Welcome back": "Welcome back",
+        "Email": "Email",
+        "Password": "Password",
+        "Confirm password": "Confirm password"
     }
 }

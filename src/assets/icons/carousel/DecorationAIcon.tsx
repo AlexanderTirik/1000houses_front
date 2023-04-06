@@ -14,9 +14,9 @@ export const DecorationAIcon = ({ className, pathClassName }: IProps) => (
         <path
             d="M-14 27.5L6.02002 7.91052C18.4552 -4.2572 39.3007 0.435618 45.322 16.7583L65.2663 70.8243C70.0173 83.7034 84.5833 89.9809 97.208 84.59L211 36"
             stroke="#787878"
-            stroke-opacity="0.2"
-            stroke-width="2"
-            stroke-linecap="round"
+            strokeOpacity="0.2"
+            strokeWidth="2"
+            strokeLinecap="round"
             className={pathClassName}
         />
     </svg>

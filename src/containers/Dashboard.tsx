@@ -1,32 +1,37 @@
 import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Chart } from '@components/Chart/index'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
-import useTheme from '@hooks/useTheme'
 import { useTranslation } from 'react-i18next'
 
 export const Dashboard = () => {
     const [t, i18n] = useTranslation()
-    const [theme, setTheme] = useTheme()
     return (
-        <div className="m-16 flex">
-            <div className="mr-16 flex w-1/2 flex-col">
+        <div className="m-5 flex flex-col items-center lg:m-16 lg:flex-row-reverse">
+            <div className="flex w-full flex-col">
+                <ButtonCheckbox
+                    labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
+                    className="mb-2"
+                />
+                <Chart />
+            </div>
+            <div className="flex w-full flex-col lg:mr-16 lg:w-1/2">
                 <div className="flex items-stretch">
                     <DashboardCell
                         className="flex-1"
-                        title="profitability"
+                        title={t('Profitability')}
                         primaryText="4%"
-                        secondaryText="~ +48% per year"
+                        secondaryText={'~ +48% ' + t('per year')}
                         variant="A"
                     />
                     <DashboardCell
                         className="flex-1"
-                        title="rental objects"
+                        title={t('Rental Objects')}
                         primaryText="6"
                         variant="B"
                     />
                 </div>
                 <DashboardCell
-                    title="hold time"
+                    title={t('Hold Time')}
                     primaryText={
                         <span>
                             22
@@ -43,29 +48,22 @@ export const Dashboard = () => {
                 <div className="flex">
                     <DashboardCell
                         className="flex-1"
-                        title="last hold volume"
+                        title={t('Last Hold Volume')}
                         primaryText="360 000"
                         variant="C"
                     />
                     <DashboardCell
                         className="flex-1"
-                        title="Current hold"
+                        title={t('Current Hold')}
                         primaryText="1 000"
                         variant="D"
                     />
                 </div>
                 <DashboardCell
-                    title="last payment amount"
+                    title={t('Last Payment Amount')}
                     primaryText="3500"
                     secondaryText="USDC"
                 />
-            </div>
-            <div className="flex w-full flex-col">
-                <ButtonCheckbox
-                    labels={['Day', 'Week', 'Month', 'Year']}
-                    className="mb-2"
-                />
-                <Chart />
             </div>
         </div>
     )

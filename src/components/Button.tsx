@@ -19,7 +19,7 @@ export const Button = ({
 }: IProps) => {
     const styles = {
         button: {
-            primary: `bg-blue text-white disabled:cursor-not-allowed disabled:text-gray-400`,
+            primary: `bg-blue text-white disabled:cursor-not-allowed disabled:text-gray-400 `,
             secondary: `bg-white
                 text-black
                 dark:text-white
@@ -29,7 +29,7 @@ export const Button = ({
                 dark:disabled:text-gray-400
                 hover:bg-blue
                 dark:hover:bg-blue
-                transition`,
+                transition `,
             tertiary: `border-solid
                 border
                 border-white
@@ -41,21 +41,21 @@ export const Button = ({
                 dark:disabled:text-gray-400
                 hover:border-blue
                 dark:hover:border-blue
-                transition`,
+                transition `,
         },
         icon: {
-            primary: !disabled ? 'stroke-white' : 'stroke-gray-400',
-            secondary: !disabled ? 'dark:stroke-white' : 'stroke-gray-400',
-            tertiary: !disabled ? 'dark:stroke-white' : 'stroke-gray-400',
+            primary: !disabled ? 'stroke-white ' : 'stroke-gray-400 ',
+            secondary: !disabled ? 'dark:stroke-white ' : 'stroke-gray-400 ',
+            tertiary: !disabled ? 'dark:stroke-white ' : 'stroke-gray-400 ',
         },
     }
     return (
         <button
             disabled={disabled}
             className={
-                className +
-                ' flex flex-row items-center rounded-full py-2 px-5 ' +
-                styles.button[variant]
+                'flex flex-row items-center justify-center rounded-full py-2 px-5 ' +
+                styles.button[variant] +
+                className
             }
             onClick={onClick}
         >

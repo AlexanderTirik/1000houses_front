@@ -31,7 +31,6 @@ export const Chart = () => {
     useEffect(() => {
         window.addEventListener('storage', () => {
             const currentTheme = localStorage.getItem('theme')
-            console.log(currentTheme)
             if (
                 !currentTheme ||
                 (currentTheme !== 'light' && currentTheme !== 'dark')

@@ -1,12 +1,13 @@
 import { TeamMember } from '@components/TeamMember'
 
 export const Team = () => (
-    <div className="mx-16 flex flex-col">
+    <div className="m-8 flex flex-col lg:mx-16">
         <div className="mb-4 text-4xl font-semibold text-black dark:text-white">
             Team
         </div>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center lg:flex-row">
             <TeamMember
+                key="1"
                 name="John Doe"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     euismod, nunc in tincidunt ultricies, enim lectus
@@ -15,6 +16,7 @@ export const Team = () => (
                 photo="https://media.architecturaldigest.com/photos/5abe831a33e2a9249e2c08d0/1:1/w_1632,h_1632,c_limit/GettyImages-544265174.jpg"
             />
             <TeamMember
+                key="2"
                 name="John Doe"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     euismod, nunc in tincidunt ultricies, enim lectus
@@ -31,6 +33,7 @@ export const Team = () => (
                 photo="https://www.nationalgallery.org.uk/media/30115/gogh-vincent-van-c-face-half.jpg?rxy=0.44407894736842107,0.43656716417910446&width=430&bgcolor=fff&rnd=132138118514970000"
             />
             <TeamMember
+                key="3"
                 name="John Doe"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     euismod, nunc in tincidunt ultricies, enim lectus
@@ -39,6 +42,7 @@ export const Team = () => (
                 photo="https://www.artnews.com/wp-content/uploads/2022/12/1665px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_719161.jpg?w=800"
             />
             <TeamMember
+                key="4"
                 name="John Doe"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     euismod, nunc in tincidunt ultricies, enim lectus

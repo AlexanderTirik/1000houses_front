@@ -1,6 +1,35 @@
 {
     "translation": {
         "language": "Ру",
-        "Welcome to React": "Добро пожаловать"
+        "Connect wallet": "Подключить кошелек",
+        "Sign up": "Регистрация",
+        "Login": "Вход",
+        "Profitability": "Прибыльность",
+        "Rental Objects": "Объекты аренды",
+        "Hold Time": "Время холда",
+        "Last Hold Volume": "Объем последнего холда",
+        "per year": "в год",
+        "Current Hold": "Текущий холд",
+        "Last Payment Amount": "Сумма последнего платежа",
+        "Report on the work of the management company": "Отчет о работе управляющей компании",
+        "Company growth strategy": "Стратегия роста компании",
+        "How to use the platform": "Как пользоваться платформой",
+        "Team": "Команда",
+        "Partners": "Партнеры",
+        "Contact": "Контакт",
+        "Blog": "Блог",
+        "Documentation": "Документация",
+        "Information": "Информация",
+        "Grants": "Гранты",
+        "Other": "Другое",
+        "Day": "День",
+        "Week": "Неделя",
+        "Month": "Месяц",
+        "Year": "Год",
+        "Welcome": "Добро пожаловать",
+        "Welcome back": "Снова здесь? Как здорово!",
+        "Email": "Электронная почта",
+        "Password": "Пароль",
+        "Confirm password": "Подтвердите пароль"
     }
 }

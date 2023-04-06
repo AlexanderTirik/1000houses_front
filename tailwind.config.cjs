@@ -5,8 +5,8 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: {
-                'home-light': "url('/public/HomeLightBackground.png')",
-                'home-dark': "url('/public/HomeDarkBackground.png')",
+                'home-light': "url('/HomeLightBackground.png')",
+                'home-dark': "url('/HomeDarkBackground.png')",
             },
             dropShadow: {
                 primary: '0px 4px 32px rgba(0, 71, 255, 0.25)',

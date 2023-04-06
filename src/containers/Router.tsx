@@ -1,5 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from '../scenes/Home'
+import { ModalProvider } from '../context/ModalContext'
+import { ModalRoot } from './ModalRoot'
 
 const router = createBrowserRouter([
     {
@@ -8,5 +10,12 @@ const router = createBrowserRouter([
     },
 ])
 export const Router = () => {
-    return <RouterProvider router={router} />
+    return (
+        <ModalProvider>
+            <>
+                <ModalRoot />
+                <RouterProvider router={router} />
+            </>
+        </ModalProvider>
+    )
 }
