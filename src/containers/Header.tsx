@@ -13,7 +13,7 @@ import { LoginModal } from './LoginModal'
 export const Header = () => {
     const [t, i18n] = useTranslation()
     return (
-        <header className="flex h-20 flex-row items-center justify-between border-b border-solid border-white bg-transparent px-8 lg:h-20 lg:px-16">
+        <header className="flex h-20 w-full flex-row items-center justify-between border-b border-solid border-white bg-transparent px-8 lg:h-20 lg:px-16">
             <LogoIcon />
             <div className="hidden h-full flex-row items-center lg:visible lg:flex">
                 <ThemeSwitch className="w-20 self-stretch" />

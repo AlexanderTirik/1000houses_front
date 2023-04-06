@@ -50,7 +50,7 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                     />
                 </div>
             </div>
-            <div>
+            <div className="mt-3">
                 <Button onClick={() => {}} className="mb-2 w-full">
                     {t('Sign up')}
                 </Button>
