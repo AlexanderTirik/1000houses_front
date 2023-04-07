@@ -1,9 +1,9 @@
 import { CloseIcon } from '@assets/icons/CloseIcon'
 import { Input } from '@components/Input'
 import { useTranslation } from 'react-i18next'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
-import { ModalConsumer } from '../context/ModalContext'
+import { ModalContext } from '../context/ModalContext'
 import { LoginModal } from './LoginModal'
 import { validateEmail } from '../helpers/validation'
 import { useAuthError } from '@hooks/useAuthError'
@@ -25,6 +25,7 @@ export const SignUpModal: FunctionComponent<IProps> = ({
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorType, errorMessage, setError, cleanError] = useAuthError()
+    const { showModal } = useContext(ModalContext)
 
     const onSignUp = (showConfirmModal: () => void) => {
         if (password !== confirmPassword || !password.length) {
@@ -111,33 +112,25 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                 </div>
             </div>
             <div className="mt-3">
-                <ModalConsumer>
-                    {({ showModal }) => (
-                        <>
-                            <Button
-                                onClick={() =>
-                                    onSignUp(() =>
-                                        showModal(
-                                            <ConfirmUserModal email={email} />,
-                                            { email: email }
-                                        )
-                                    )
-                                }
-                                className="mb-2 w-full"
-                            >
-                                {t('Sign up')}
-                            </Button>
-
-                            <Button
-                                variant="secondary"
-                                className="w-full"
-                                onClick={() => showModal(<LoginModal />)}
-                            >
-                                {t('Login')}
-                            </Button>
-                        </>
-                    )}
-                </ModalConsumer>
+                <Button
+                    onClick={() =>
+                        onSignUp(() =>
+                            showModal(<ConfirmUserModal email={email} />, {
+                                email: email,
+                            })
+                        )
+                    }
+                    className="mb-2 w-full"
+                >
+                    {t('Sign up')}
+                </Button>
+                <Button
+                    variant="secondary"
+                    className="w-full"
+                    onClick={() => showModal(<LoginModal />)}
+                >
+                    {t('Login')}
+                </Button>
             </div>
         </div>
     )

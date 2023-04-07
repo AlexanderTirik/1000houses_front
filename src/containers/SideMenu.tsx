@@ -2,15 +2,17 @@ import { CloseIcon } from '@assets/icons/CloseIcon'
 import { WalletIcon } from '@assets/icons/WalletIcon'
 import { Button } from '@components/Button'
 import { useTranslation } from 'react-i18next'
-import { ModalConsumer } from '../context/ModalContext'
+import { ModalContext } from '../context/ModalContext'
 import { LanguageSwitch } from '@components/LanguageSwitch'
 import { ThemeSwitch } from '@components/ThemeSwitch'
 import { SignUpModal } from './SignUpModal'
 import { LoginModal } from './LoginModal'
+import { useContext } from 'react'
 
 interface IProps {}
 export const SideMenu = ({}: IProps) => {
     const [t, i18n] = useTranslation()
+    const { hideModal, showModal } = useContext(ModalContext)
     return (
         <div
             onClick={(e) => e.stopPropagation()}
@@ -19,13 +21,9 @@ export const SideMenu = ({}: IProps) => {
             <div>
                 <header className="flex justify-between border-b border-b-white p-6">
                     <LanguageSwitch />
-                    <ModalConsumer>
-                        {({ hideModal }) => (
-                            <button onClick={hideModal}>
-                                <CloseIcon />
-                            </button>
-                        )}
-                    </ModalConsumer>
+                    <button onClick={hideModal}>
+                        <CloseIcon />
+                    </button>
                 </header>
 
                 <div className="mt-4 flex flex-col">
@@ -38,28 +36,20 @@ export const SideMenu = ({}: IProps) => {
                     </Button>
 
                     <div className="mt-1 flex">
-                        <ModalConsumer>
-                            {({ showModal }) => (
-                                <Button
-                                    onClick={() => showModal(<SignUpModal />)}
-                                    variant="tertiary"
-                                    className="flex-1 justify-center py-5"
-                                >
-                                    {t('Sign up')}
-                                </Button>
-                            )}
-                        </ModalConsumer>
-                        <ModalConsumer>
-                            {({ showModal }) => (
-                                <Button
-                                    onClick={() => showModal(<LoginModal />)}
-                                    variant="secondary"
-                                    className="mr-1 flex-1 justify-center py-5"
-                                >
-                                    {t('Login')}
-                                </Button>
-                            )}
-                        </ModalConsumer>
+                        <Button
+                            onClick={() => showModal(<SignUpModal />)}
+                            variant="tertiary"
+                            className="flex-1 justify-center py-5"
+                        >
+                            {t('Sign up')}
+                        </Button>
+                        <Button
+                            onClick={() => showModal(<LoginModal />)}
+                            variant="secondary"
+                            className="mr-1 flex-1 justify-center py-5"
+                        >
+                            {t('Login')}
+                        </Button>
                     </div>
                 </div>
             </div>

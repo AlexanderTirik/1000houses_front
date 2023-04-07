@@ -38,5 +38,3 @@ export const ModalProvider = ({ children }: IProps) => {
         </ModalContext.Provider>
     )
 }
-
-export const ModalConsumer = ModalContext.Consumer

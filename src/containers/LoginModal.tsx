@@ -1,13 +1,13 @@
 import { CloseIcon } from '@assets/icons/CloseIcon'
 import { Input } from '@components/Input'
 import { useTranslation } from 'react-i18next'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
 import { SignUpModal } from './SignUpModal'
-import { ModalConsumer } from '../context/ModalContext'
+import { ModalContext } from '../context/ModalContext'
 import { useAuthError } from '@hooks/useAuthError'
 import { validateEmail } from '../helpers/validation'
-import UserPool from '../config/userPool'
+import userPool from '../config/userPool'
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { ModalHeader } from '@components/ModalHeader'
 import { CognitoErrors } from '../enums/CognitoErrors'
@@ -24,7 +24,7 @@ export const LoginModal: FunctionComponent<IProps> = ({
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorType, errorMessage, setError, cleanError] = useAuthError()
-
+    const { showModal } = useContext(ModalContext)
     const onClose = () => {
         cleanError()
         onRequestClose()
@@ -36,7 +36,7 @@ export const LoginModal: FunctionComponent<IProps> = ({
         }
         const cognitoUser = new CognitoUser({
             Username: email,
-            Pool: UserPool,
+            Pool: userPool,
         })
 
         const authDetails = new AuthenticationDetails({
@@ -130,34 +130,25 @@ export const LoginModal: FunctionComponent<IProps> = ({
                 </div>
             </div>
             <div>
-                {' '}
-                <ModalConsumer>
-                    {({ showModal }) => (
-                        <>
-                            <Button
-                                onClick={() =>
-                                    onLogin(() =>
-                                        showModal(
-                                            <ConfirmUserModal email={email} />,
-                                            { email }
-                                        )
-                                    )
-                                }
-                                className="mb-2 w-full"
-                            >
-                                {t('Login')}
-                            </Button>
-
-                            <Button
-                                variant="secondary"
-                                className="w-full"
-                                onClick={() => showModal(<SignUpModal />)}
-                            >
-                                {t('Sign up')}
-                            </Button>
-                        </>
-                    )}
-                </ModalConsumer>
+                <Button
+                    onClick={() =>
+                        onLogin(() =>
+                            showModal(<ConfirmUserModal email={email} />, {
+                                email,
+                            })
+                        )
+                    }
+                    className="mb-2 w-full"
+                >
+                    {t('Login')}
+                </Button>
+                <Button
+                    variant="secondary"
+                    className="w-full"
+                    onClick={() => showModal(<SignUpModal />)}
+                >
+                    {t('Sign up')}
+                </Button>
             </div>
         </div>
     )
