@@ -14,9 +14,9 @@ export const CloseIcon = ({ className, pathClassName }: IProps) => (
         <path
             d="M6.65685 18.1569L17.9706 6.84315M17.9706 18.1569L6.65685 6.84315"
             stroke="black"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className={'dark:stroke-white ' + pathClassName}
         />
     </svg>
