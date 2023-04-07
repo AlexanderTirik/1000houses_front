@@ -7,6 +7,8 @@ module.exports = {
             backgroundImage: {
                 'home-light': "url('/HomeLightBackground.png')",
                 'home-dark': "url('/HomeDarkBackground.png')",
+                'about-light': "url('/AboutProjectLightBackground.png')",
+                'about-dark': "url('/AboutProjectDarkBackground.png')",
             },
             dropShadow: {
                 primary: '0px 4px 32px rgba(0, 71, 255, 0.25)',
