@@ -36,6 +36,12 @@
         "Passwords do not match": "Passwords do not match",
         "Email already exists": "Email already exists",
         "Wrong email": "Wrong email",
-        "Something went wrong, try again": "Something went wrong, try again"
+        "Something went wrong, try again": "Something went wrong, try again",
+        "Incorrect email or password": "Incorrect email or password",
+        "We sent you confirmation code to your email": "We sent you confirmation code to your email",
+        "Confirm email": "Confirm email",
+        "Confirm": "Confirm",
+        "Confirmation code": "Confirmation code",
+        "Wrong confirmation code": "Wrong confirmation code"
     }
 }

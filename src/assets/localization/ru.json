@@ -36,6 +36,12 @@
         "Passwords do not match": "Пароли не совпадают",
         "Email already exists": "Почта уже зарегистрирована",
         "Wrong email": "Неверная почта",
-        "Something went wrong, try again": "Что-то пошло не так, попробуйте еще раз"
+        "Something went wrong, try again": "Что-то пошло не так, попробуйте еще раз",
+        "Incorrect email or password": "Неверная почта или пароль",
+        "We sent you confirmation code to your email": "Мы отправили вам код подтверждения на вашу почту",
+        "Confirm email": "Подтвердите почту",
+        "Confirm": "Подтвердить",
+        "Confirmation code": "Код подтверждения",
+        "Wrong confirmation code": "Неверный код подтверждения"
     }
 }

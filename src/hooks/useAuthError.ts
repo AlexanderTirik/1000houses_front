@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react'
 
 export const useAuthError = () => {
     const [message, setMessage] = useState('')
-    const [type, setType] = useState<'email' | 'password' | null>()
+    const [type, setType] = useState<'email' | 'password' | 'all' | null>()
 
     const setError = useCallback(
-        (type: 'email' | 'password' | null, message: string) => {
+        (type: 'email' | 'password' | 'all' | null, message: string) => {
             setType(type)
             setMessage(message)
         },

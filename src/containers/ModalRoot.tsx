@@ -7,7 +7,7 @@ export const ModalRoot = () => (
             component ? (
                 <div
                     className="fixed inset-0 z-50 backdrop-blur"
-                    onClick={hideModal}
+                    // onClick={hideModal}
                 >
                     {cloneElement(component, {
                         ...props,

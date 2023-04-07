@@ -1,12 +1,17 @@
 import { CloseIcon } from '@assets/icons/CloseIcon'
 import { Input } from '@components/Input'
 import { useTranslation } from 'react-i18next'
-import { FunctionComponent, useReducer, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 import { Button } from '@components/Button'
 import { ModalConsumer } from '../context/ModalContext'
 import { LoginModal } from './LoginModal'
 import { validateEmail } from '../helpers/validation'
 import { useAuthError } from '@hooks/useAuthError'
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
+import userPool from '../config/userPool'
+import { ModalHeader } from '@components/ModalHeader'
+import { ConfirmUserModal } from './ConfirmUserModal'
+import { CognitoErrors } from '../enums/CognitoErrors'
 
 interface IProps {
     onRequestClose?: () => void
@@ -21,17 +26,36 @@ export const SignUpModal: FunctionComponent<IProps> = ({
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorType, errorMessage, setError, cleanError] = useAuthError()
 
-    const onSignUp = () => {
+    const onSignUp = (showConfirmModal: () => void) => {
         if (password !== confirmPassword || !password.length) {
             setError('password', t('Passwords do not match') as string)
             return
         }
+
         if (!validateEmail(email)) {
             setError('email', t('Wrong email') as string)
             return
         }
-        setError('email', t('Email already exists') as string)
-        cleanError()
+        const attributes = []
+        attributes.push(
+            new CognitoUserAttribute({ Name: 'email', Value: email })
+        )
+        userPool.signUp(email, password, attributes, [], (err, data) => {
+            if (err) {
+                switch (err.name) {
+                    case CognitoErrors.UsernameExistsException: {
+                        setError('email', t('Email already exists'))
+                        return
+                    }
+                    default: {
+                        setError('email', t('Something went wrong, try again'))
+                        return
+                    }
+                }
+            }
+            cleanError()
+            showConfirmModal()
+        })
     }
 
     return (
@@ -40,18 +64,10 @@ export const SignUpModal: FunctionComponent<IProps> = ({
             className="absolute inset-0 flex flex-col justify-between bg-gray-100 bg-home-light bg-cover bg-repeat-y p-6 dark:bg-light-black dark:bg-home-dark lg:inset-x-[35%] lg:bottom-auto lg:top-1/4 lg:rounded-3xl lg:border lg:border-gray-200"
         >
             <div>
-                <header className="relative mb-7 flex items-center justify-center">
-                    <span className="text-lg text-black dark:text-white">
-                        {t('Welcome')}
-                    </span>
-
-                    <button
-                        onClick={onRequestClose}
-                        className="absolute right-0"
-                    >
-                        <CloseIcon />
-                    </button>
-                </header>
+                <ModalHeader
+                    title={t('Welcome')}
+                    onRequestClose={onRequestClose}
+                />
                 <div>
                     {errorMessage && errorType === 'email' ? (
                         <span className="ml-4 mb-4 text-red-500">
@@ -95,18 +111,31 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                 </div>
             </div>
             <div className="mt-3">
-                <Button onClick={onSignUp} className="mb-2 w-full">
-                    {t('Sign up')}
-                </Button>
                 <ModalConsumer>
                     {({ showModal }) => (
-                        <Button
-                            variant="secondary"
-                            className="w-full"
-                            onClick={() => showModal(<LoginModal />)}
-                        >
-                            {t('Login')}
-                        </Button>
+                        <>
+                            <Button
+                                onClick={() =>
+                                    onSignUp(() =>
+                                        showModal(
+                                            <ConfirmUserModal email={email} />,
+                                            { email: email }
+                                        )
+                                    )
+                                }
+                                className="mb-2 w-full"
+                            >
+                                {t('Sign up')}
+                            </Button>
+
+                            <Button
+                                variant="secondary"
+                                className="w-full"
+                                onClick={() => showModal(<LoginModal />)}
+                            >
+                                {t('Login')}
+                            </Button>
+                        </>
                     )}
                 </ModalConsumer>
             </div>
