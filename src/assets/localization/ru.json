@@ -44,6 +44,10 @@
         "Confirmation code": "Код подтверждения",
         "Wrong confirmation code": "Неверный код подтверждения",
         "Logout": "Выйти",
-        "Not authorized": "Не авторизован"
+        "Not authorized": "Не авторизован",
+        "Wallet not installed": "Кошелек не установлен",
+        "Failed to connect. Try again": "Не удалось подключиться. Попробуйте еще раз",
+        "Disconnect wallet": "Отключить кошелек",
+        "Connecting...": "Подключение..."
     }
 }

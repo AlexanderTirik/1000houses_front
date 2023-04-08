@@ -9,11 +9,14 @@ import { SignUpModal } from './SignUpModal'
 import { LoginModal } from './LoginModal'
 import { useContext } from 'react'
 import { ConnectWalletModal } from './ConnectWalletModal'
+import { WalletContext } from '../context/WalletContext'
 
 interface IProps {}
 export const SideMenu = ({}: IProps) => {
     const [t, i18n] = useTranslation()
     const { hideModal, showModal } = useContext(ModalContext)
+    const { isWalletConnected, disconnectPhantom, isConnecting } =
+        useContext(WalletContext)
     return (
         <div
             onClick={(e) => e.stopPropagation()}
@@ -28,14 +31,25 @@ export const SideMenu = ({}: IProps) => {
                 </header>
 
                 <div className="mt-4 flex flex-col">
-                    <Button
-                        onClick={() => showModal(<ConnectWalletModal />)}
-                        icon={<WalletIcon />}
-                        className="justify-center py-5"
-                    >
-                        {t('Connect wallet')}
-                    </Button>
-
+                    {!isWalletConnected ? (
+                        <Button
+                            onClick={() => showModal(<ConnectWalletModal />)}
+                            icon={<WalletIcon />}
+                            className="justify-center py-5"
+                        >
+                            {isConnecting
+                                ? t('Connecting...')
+                                : t('Connect wallet')}
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={disconnectPhantom}
+                            icon={<WalletIcon />}
+                            className="justify-center py-5"
+                        >
+                            {t('Disconnect wallet')}
+                        </Button>
+                    )}
                     <div className="mt-1 flex">
                         <Button
                             onClick={() => showModal(<SignUpModal />)}

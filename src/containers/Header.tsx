@@ -11,13 +11,15 @@ import { SignUpModal } from './SignUpModal'
 import { LoginModal } from './LoginModal'
 import { useContext } from 'react'
 import { AccountContext } from '../context/AccountContext'
-import { useEffectAsync } from '@hooks/useEffectAsync'
 import { ConnectWalletModal } from './ConnectWalletModal'
+import { WalletContext } from '../context/WalletContext'
 
 export const Header = () => {
-    const [t, i18n] = useTranslation()
+    const [t] = useTranslation()
     const { showModal } = useContext(ModalContext)
-    const { updateAuthStatus, logout, isLoggedIn } = useContext(AccountContext)
+    const { logout, isLoggedIn } = useContext(AccountContext)
+    const { isWalletConnected, disconnectPhantom, isConnecting } =
+        useContext(WalletContext)
 
     return (
         <header className="flex h-20 w-full flex-row items-center justify-between border-b border-solid border-white bg-transparent px-8 lg:h-20 lg:px-16">
@@ -53,13 +55,25 @@ export const Header = () => {
                         {t('Logout')}
                     </Button>
                 )}
-                <Button
-                    onClick={() => showModal(<ConnectWalletModal />)}
-                    icon={<WalletIcon />}
-                    className="ml-7"
-                >
-                    {t('Connect wallet')}
-                </Button>
+                {!isWalletConnected ? (
+                    <Button
+                        onClick={() => showModal(<ConnectWalletModal />)}
+                        icon={<WalletIcon />}
+                        className="ml-7"
+                    >
+                        {isConnecting
+                            ? t('Connecting...')
+                            : t('Connect wallet')}
+                    </Button>
+                ) : (
+                    <Button
+                        onClick={disconnectPhantom}
+                        icon={<WalletIcon />}
+                        className="ml-7"
+                    >
+                        {t('Disconnect wallet')}
+                    </Button>
+                )}
             </div>
             <button
                 className="lg:hidden"

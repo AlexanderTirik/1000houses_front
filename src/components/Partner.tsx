@@ -45,7 +45,7 @@ export const Partner = ({ image, name, variant }: IProps) => {
     }
     return (
         <div className="relative flex w-[200px] flex-col items-center justify-center rounded-3xl bg-white p-4 dark:bg-gray-700 dark:text-white">
-            <img src={image} className="mb-1 h-12 w-12 rounded-2xl" />
+            <img src={image} className="mb-1 h-12 rounded-2xl" />
             <div className="text-2xl font-semibold">{name}</div>
             {renderDecoration()}
         </div>

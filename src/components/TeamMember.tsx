@@ -16,7 +16,10 @@ export const TeamMember = ({ name, description, labels, photo }: IProps) => (
         <div className="rounded-3xl bg-white p-4 text-black dark:bg-gray-700 dark:text-white lg:px-2 lg:py-3">
             <div className="div mb-2 flex flex-wrap">
                 {labels.map((label) => (
-                    <div className="mr-[-16px] rounded-3xl border border-gray-400 bg-gray-100 px-6 py-2 text-gray-400 dark:border-white dark:bg-black dark:text-white">
+                    <div
+                        key={label}
+                        className="mr-[-16px] rounded-3xl border border-gray-400 bg-gray-100 px-6 py-2 text-gray-400 dark:border-white dark:bg-black dark:text-white"
+                    >
                         {label}
                     </div>
                 ))}

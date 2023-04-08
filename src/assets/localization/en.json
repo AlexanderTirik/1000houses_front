@@ -44,6 +44,10 @@
         "Confirmation code": "Confirmation code",
         "Wrong confirmation code": "Wrong confirmation code",
         "Logout": "Logout",
-        "Not authorized": "Not authorized"
+        "Not authorized": "Not authorized",
+        "Wallet not installed": "Wallet not installed",
+        "Failed to connect. Try again": "Failed to connect. Try again",
+        "Disconnect wallet": "Disconnect wallet",
+        "Connecting...": "Connecting..."
     }
 }

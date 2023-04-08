@@ -25,8 +25,8 @@ export const PhantomWalletIcon = ({ pathClassName, className }: IProps) => (
                 y2="128"
                 gradientUnits="userSpaceOnUse"
             >
-                <stop stop-color="#534BB1" />
-                <stop offset="1" stop-color="#551BF9" />
+                <stop stopColor="#534BB1" />
+                <stop offset="1" stopColor="#551BF9" />
             </linearGradient>
             <linearGradient
                 id="paint1_linear"
@@ -36,8 +36,8 @@ export const PhantomWalletIcon = ({ pathClassName, className }: IProps) => (
                 y2="108"
                 gradientUnits="userSpaceOnUse"
             >
-                <stop stop-color="white" />
-                <stop offset="1" stop-color="white" stop-opacity="0.82" />
+                <stop stopColor="white" />
+                <stop offset="1" stopColor="white" stopOpacity="0.82" />
             </linearGradient>
         </defs>
     </svg>

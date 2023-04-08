@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useContext } from 'react'
 import { Button } from '@components/Button'
 import { ModalHeader } from '@components/ModalHeader'
 import { PhantomWalletIcon } from '@assets/icons/PhantomWalletIcon'
+import { getPhantomProvider } from '../helpers/phantom'
+import useToast from '@hooks/useToast'
+import { WalletContext } from '../context/WalletContext'
 
 interface IProps {
     onRequestClose?: () => void
@@ -11,7 +14,14 @@ interface IProps {
 export const ConnectWalletModal: FunctionComponent<IProps> = ({
     onRequestClose = () => {},
 }: IProps) => {
-    const [t, i18n] = useTranslation()
+    const [t] = useTranslation()
+    const { connectPhantom } = useContext(WalletContext)
+
+    const onClickWithClose = (fn: () => void) => () => {
+        fn()
+        onRequestClose()
+    }
+
     return (
         <div
             onClick={(e) => e.stopPropagation()}
@@ -25,49 +35,7 @@ export const ConnectWalletModal: FunctionComponent<IProps> = ({
                 variant="tertiary"
                 className="mb-2"
                 icon={<PhantomWalletIcon className="mr-1" />}
-                onClick={() => {}}
-            >
-                Phantom
-            </Button>
-            <Button
-                variant="tertiary"
-                className="mb-2"
-                icon={<PhantomWalletIcon className="mr-1" />}
-                onClick={() => {}}
-            >
-                Phantom
-            </Button>
-
-            <Button
-                className="mb-2"
-                variant="tertiary"
-                icon={<PhantomWalletIcon className="mr-1" />}
-                onClick={() => {}}
-            >
-                Phantom
-            </Button>
-            <Button
-                className="mb-2"
-                variant="tertiary"
-                icon={<PhantomWalletIcon className="mr-1" />}
-                onClick={() => {}}
-            >
-                Phantom
-            </Button>
-
-            <Button
-                className="mb-2"
-                variant="tertiary"
-                icon={<PhantomWalletIcon className="mr-1" />}
-                onClick={() => {}}
-            >
-                Phantom
-            </Button>
-            <Button
-                className="mb-2"
-                variant="tertiary"
-                icon={<PhantomWalletIcon className="mr-1" />}
-                onClick={() => {}}
+                onClick={onClickWithClose(connectPhantom)}
             >
                 Phantom
             </Button>

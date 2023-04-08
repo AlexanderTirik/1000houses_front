@@ -11,14 +11,19 @@ export const FooterList = ({ title, links = [], names }: IProps) => (
             const link = links[index]
             return link ? (
                 <a
-                    key={link}
+                    key={title + name}
                     href={link}
                     className="text-gray-404 mb-2 font-normal"
                 >
                     {name}
                 </a>
             ) : (
-                <span className="mb-2 font-normal text-gray-400">{name}</span>
+                <span
+                    key={title + name}
+                    className="mb-2 font-normal text-gray-400"
+                >
+                    {name}
+                </span>
             )
         })}
     </div>

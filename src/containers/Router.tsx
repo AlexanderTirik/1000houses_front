@@ -5,6 +5,7 @@ import { ModalRoot } from './ModalRoot'
 import { AccountProvider } from '../context/AccountContext'
 import { ToastContainer } from 'react-toastify'
 import { ThemeProvider } from '../context/ThemeContext'
+import { WalletProvider } from '../context/WalletContext'
 
 const router = createBrowserRouter([
     {
@@ -16,13 +17,15 @@ export const Router = () => {
     return (
         <ModalProvider>
             <AccountProvider>
-                <ThemeProvider>
-                    <>
-                        <ModalRoot />
-                        <ToastContainer />
-                        <RouterProvider router={router} />
-                    </>
-                </ThemeProvider>
+                <WalletProvider>
+                    <ThemeProvider>
+                        <>
+                            <ModalRoot />
+                            <ToastContainer />
+                            <RouterProvider router={router} />
+                        </>
+                    </ThemeProvider>
+                </WalletProvider>
             </AccountProvider>
         </ModalProvider>
     )
