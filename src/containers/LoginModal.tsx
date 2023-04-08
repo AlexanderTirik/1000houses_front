@@ -1,4 +1,3 @@
-import { CloseIcon } from '@assets/icons/CloseIcon'
 import { Input } from '@components/Input'
 import { useTranslation } from 'react-i18next'
 import { FunctionComponent, useContext, useState } from 'react'
@@ -7,11 +6,9 @@ import { SignUpModal } from './SignUpModal'
 import { ModalContext } from '../context/ModalContext'
 import { useAuthError } from '@hooks/useAuthError'
 import { validateEmail } from '../helpers/validation'
-import userPool from '../config/userPool'
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import { ModalHeader } from '@components/ModalHeader'
 import { CognitoErrors } from '../enums/CognitoErrors'
-import { ConfirmUserModal } from './ConfirmUserModal'
+import { AccountContext } from '../context/AccountContext'
 
 interface IProps {
     onRequestClose?: () => void
@@ -24,65 +21,39 @@ export const LoginModal: FunctionComponent<IProps> = ({
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errorType, errorMessage, setError, cleanError] = useAuthError()
-    const { showModal } = useContext(ModalContext)
+
+    const { showModal, hideModal } = useContext(ModalContext)
+    const { auth } = useContext(AccountContext)
+
     const onClose = () => {
         cleanError()
         onRequestClose()
     }
-    const onLogin = (showConfirmModal: () => void) => {
+
+    const onLogin = async () => {
         if (!validateEmail(email)) {
             setError('email', t('Wrong email') as string)
             return
         }
-        const cognitoUser = new CognitoUser({
-            Username: email,
-            Pool: userPool,
-        })
-
-        const authDetails = new AuthenticationDetails({
-            Username: email,
-            Password: password,
-        })
-
-        cognitoUser.authenticateUser(authDetails, {
-            onSuccess: (result) => {
-                console.log(result)
-            },
-            onFailure: (err) => {
-                console.log(err.name)
-                switch (err.name) {
-                    case CognitoErrors.NotAuthorizedException: {
-                        setError(
-                            'all',
-                            t('Incorrect email or password') as string
-                        )
-                        return
-                    }
-                    case CognitoErrors.UserNotConfirmedException: {
-                        cognitoUser.resendConfirmationCode((err, result) => {
-                            if (err) {
-                                setError(
-                                    'all',
-                                    t(
-                                        'Something went wrong, try again'
-                                    ) as string
-                                )
-                                return
-                            }
-                            showConfirmModal()
-                        })
-                        return
-                    }
-                    default: {
-                        setError(
-                            'all',
-                            t('Something went wrong, try again') as string
-                        )
-                        return
-                    }
+        try {
+            await auth(email, password)
+            cleanError()
+            hideModal()
+        } catch (err: any) {
+            switch (err.name) {
+                case CognitoErrors.NotAuthorizedException: {
+                    setError('all', t('Incorrect email or password') as string)
+                    return
                 }
-            },
-        })
+                default: {
+                    setError(
+                        'all',
+                        t('Something went wrong, try again') as string
+                    )
+                    return
+                }
+            }
+        }
         cleanError()
     }
 
@@ -130,16 +101,7 @@ export const LoginModal: FunctionComponent<IProps> = ({
                 </div>
             </div>
             <div>
-                <Button
-                    onClick={() =>
-                        onLogin(() =>
-                            showModal(<ConfirmUserModal email={email} />, {
-                                email,
-                            })
-                        )
-                    }
-                    className="mb-2 w-full"
-                >
+                <Button onClick={onLogin} className="mb-2 w-full">
                     {t('Login')}
                 </Button>
                 <Button

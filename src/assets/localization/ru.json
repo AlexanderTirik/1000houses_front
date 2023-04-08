@@ -42,6 +42,7 @@
         "Confirm email": "Подтвердите почту",
         "Confirm": "Подтвердить",
         "Confirmation code": "Код подтверждения",
-        "Wrong confirmation code": "Неверный код подтверждения"
+        "Wrong confirmation code": "Неверный код подтверждения",
+        "Logout": "Выйти"
     }
 }

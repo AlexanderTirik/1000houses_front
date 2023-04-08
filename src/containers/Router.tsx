@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from '../scenes/Home'
 import { ModalProvider } from '../context/ModalContext'
 import { ModalRoot } from './ModalRoot'
+import { AccountProvider } from '../context/AccountContext'
 
 const router = createBrowserRouter([
     {
@@ -12,10 +13,12 @@ const router = createBrowserRouter([
 export const Router = () => {
     return (
         <ModalProvider>
-            <>
-                <ModalRoot />
-                <RouterProvider router={router} />
-            </>
+            <AccountProvider>
+                <>
+                    <ModalRoot />
+                    <RouterProvider router={router} />
+                </>
+            </AccountProvider>
         </ModalProvider>
     )
 }

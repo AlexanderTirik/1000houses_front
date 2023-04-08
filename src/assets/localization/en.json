@@ -42,6 +42,7 @@
         "Confirm email": "Confirm email",
         "Confirm": "Confirm",
         "Confirmation code": "Confirmation code",
-        "Wrong confirmation code": "Wrong confirmation code"
+        "Wrong confirmation code": "Wrong confirmation code",
+        "Logout": "Logout"
     }
 }

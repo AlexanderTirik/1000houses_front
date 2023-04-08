@@ -1,4 +1,3 @@
-import { CloseIcon } from '@assets/icons/CloseIcon'
 import { Input } from '@components/Input'
 import { useTranslation } from 'react-i18next'
 import { FunctionComponent, useContext, useState } from 'react'
@@ -116,7 +115,8 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                     onClick={() =>
                         onSignUp(() =>
                             showModal(<ConfirmUserModal email={email} />, {
-                                email: email,
+                                email,
+                                password,
                             })
                         )
                     }

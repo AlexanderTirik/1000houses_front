@@ -1,39 +1,44 @@
 import { Input } from '@components/Input'
 import { useTranslation } from 'react-i18next'
-import { FunctionComponent, useReducer, useState } from 'react'
+import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
-import UserPool from '../config/userPool'
 import { ModalHeader } from '@components/ModalHeader'
+import { AccountContext } from '../context/AccountContext'
 import { CognitoUser } from 'amazon-cognito-identity-js'
+import userPool from '../config/userPool'
 
 interface IProps {
     onRequestClose?: () => void
     email: string
+    password?: string
 }
 
 export const ConfirmUserModal: FunctionComponent<IProps> = ({
     onRequestClose = () => {},
     email,
+    password,
 }: IProps) => {
     const [t, i18n] = useTranslation()
     const [confirmationCode, setConfirmationCode] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const { auth } = useContext(AccountContext)
 
-    const onConfirm = () => {
-        const userData = {
+    const onConfirm = async () => {
+        const user = new CognitoUser({
             Username: email,
-            Pool: UserPool,
-        }
-        const user = new CognitoUser(userData)
+            Pool: userPool,
+        })
         user.confirmRegistration(confirmationCode, true, (err, result) => {
             if (err) {
-                console.log(err)
                 setErrorMessage(t('Wrong confirmation code') as string)
-            } else {
-                setErrorMessage('')
-                onRequestClose()
+                return
             }
         })
+        if (password) {
+            auth(email, password)
+        }
+        setErrorMessage('')
+        onRequestClose()
     }
 
     return (
