@@ -43,6 +43,7 @@
         "Confirm": "Подтвердить",
         "Confirmation code": "Код подтверждения",
         "Wrong confirmation code": "Неверный код подтверждения",
-        "Logout": "Выйти"
+        "Logout": "Выйти",
+        "Not authorized": "Не авторизован"
     }
 }

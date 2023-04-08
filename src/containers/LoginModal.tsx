@@ -60,7 +60,7 @@ export const LoginModal: FunctionComponent<IProps> = ({
     return (
         <div
             onClick={(e) => e.stopPropagation()}
-            className="absolute inset-0 flex flex-col justify-between bg-gray-100 bg-home-light bg-cover bg-repeat-y p-6 dark:bg-light-black dark:bg-home-dark lg:inset-y-1/4 lg:inset-x-[35%] lg:rounded-3xl lg:border lg:border-gray-200"
+            className="absolute inset-0 flex flex-col justify-between bg-gray-100 bg-home-light bg-cover bg-repeat-y p-6 dark:bg-light-black dark:bg-home-dark lg:inset-x-[35%] lg:top-1/4 lg:bottom-auto lg:rounded-3xl lg:border lg:border-gray-200"
         >
             <div>
                 <ModalHeader

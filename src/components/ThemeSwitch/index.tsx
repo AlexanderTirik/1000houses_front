@@ -1,14 +1,15 @@
 import { MoonIcon } from '@assets/icons/MoonIcon'
 import { SunIcon } from '@assets/icons/SunIcon'
 import { ThemeOption } from './ThemeOption'
-import useTheme from '../../hooks/useTheme'
+import { useContext } from 'react'
+import { ThemeContext } from '../../context/ThemeContext'
 
 interface IProps {
     className?: string
 }
 
 export const ThemeSwitch = ({ className }: IProps) => {
-    const [theme, setTheme] = useTheme()
+    const { theme, setTheme } = useContext(ThemeContext)
     return (
         <div className={className + ' flex flex-row'}>
             <ThemeOption

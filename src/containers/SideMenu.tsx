@@ -8,6 +8,7 @@ import { ThemeSwitch } from '@components/ThemeSwitch'
 import { SignUpModal } from './SignUpModal'
 import { LoginModal } from './LoginModal'
 import { useContext } from 'react'
+import { ConnectWalletModal } from './ConnectWalletModal'
 
 interface IProps {}
 export const SideMenu = ({}: IProps) => {
@@ -28,7 +29,7 @@ export const SideMenu = ({}: IProps) => {
 
                 <div className="mt-4 flex flex-col">
                     <Button
-                        onClick={() => {}}
+                        onClick={() => showModal(<ConnectWalletModal />)}
                         icon={<WalletIcon />}
                         className="justify-center py-5"
                     >

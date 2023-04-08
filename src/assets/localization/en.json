@@ -43,6 +43,7 @@
         "Confirm": "Confirm",
         "Confirmation code": "Confirmation code",
         "Wrong confirmation code": "Wrong confirmation code",
-        "Logout": "Logout"
+        "Logout": "Logout",
+        "Not authorized": "Not authorized"
     }
 }

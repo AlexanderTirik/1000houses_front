@@ -12,6 +12,7 @@ import { ModalContext } from './ModalContext'
 interface IAccountContext {
     auth: (email: string, password: string) => Promise<any>
     getSession: () => Promise<any>
+    updateAuthStatus: () => Promise<void>
     logout: () => void
     isLoggedIn: boolean
 }
@@ -19,6 +20,7 @@ interface IAccountContext {
 export const AccountContext = createContext({
     auth: (email: string, password: string) => {},
     getSession: () => {},
+    updateAuthStatus: () => {},
     logout: () => {},
     isLoggedIn: false,
 } as IAccountContext)
@@ -29,6 +31,15 @@ interface IProps {
 export const AccountProvider = ({ children }: IProps) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { showModal } = useContext(ModalContext)
+
+    const updateAuthStatus = async () => {
+        try {
+            await getSession()
+            setIsLoggedIn(true)
+        } catch (e) {
+            setIsLoggedIn(false)
+        }
+    }
 
     const getSession = () => {
         return new Promise((resolve, reject) => {
@@ -111,6 +122,7 @@ export const AccountProvider = ({ children }: IProps) => {
                 auth,
                 getSession,
                 logout,
+                updateAuthStatus,
                 isLoggedIn,
             }}
         >

@@ -3,6 +3,8 @@ import Home from '../scenes/Home'
 import { ModalProvider } from '../context/ModalContext'
 import { ModalRoot } from './ModalRoot'
 import { AccountProvider } from '../context/AccountContext'
+import { ToastContainer } from 'react-toastify'
+import { ThemeProvider } from '../context/ThemeContext'
 
 const router = createBrowserRouter([
     {
@@ -14,10 +16,13 @@ export const Router = () => {
     return (
         <ModalProvider>
             <AccountProvider>
-                <>
-                    <ModalRoot />
-                    <RouterProvider router={router} />
-                </>
+                <ThemeProvider>
+                    <>
+                        <ModalRoot />
+                        <ToastContainer />
+                        <RouterProvider router={router} />
+                    </>
+                </ThemeProvider>
             </AccountProvider>
         </ModalProvider>
     )

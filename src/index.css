@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* @import url('react-toastify/dist/ReactToastify.css'); */
 @font-face {
     font-family: montserrat;
     src: url(./assets/fonts/Montserrat-VariableFont_wght.ttf);

@@ -12,15 +12,12 @@ import { LoginModal } from './LoginModal'
 import { useContext } from 'react'
 import { AccountContext } from '../context/AccountContext'
 import { useEffectAsync } from '@hooks/useEffectAsync'
+import { ConnectWalletModal } from './ConnectWalletModal'
 
 export const Header = () => {
     const [t, i18n] = useTranslation()
     const { showModal } = useContext(ModalContext)
-    const { getSession, logout, isLoggedIn } = useContext(AccountContext)
-
-    useEffectAsync(async () => {
-        console.log(await getSession())
-    })
+    const { updateAuthStatus, logout, isLoggedIn } = useContext(AccountContext)
 
     return (
         <header className="flex h-20 w-full flex-row items-center justify-between border-b border-solid border-white bg-transparent px-8 lg:h-20 lg:px-16">
@@ -57,7 +54,7 @@ export const Header = () => {
                     </Button>
                 )}
                 <Button
-                    onClick={() => {}}
+                    onClick={() => showModal(<ConnectWalletModal />)}
                     icon={<WalletIcon />}
                     className="ml-7"
                 >

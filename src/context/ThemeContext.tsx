@@ -1,10 +1,20 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, createContext, useEffect, useState } from 'react'
 
-export default function useTheme(): [
-    'dark' | 'light',
-    (theme: 'dark' | 'light') => void
-] {
-    const [theme, setTheme] = useState(localStorage.theme)
+interface IThemeContext {
+    theme: 'light' | 'dark'
+    setTheme: (theme: 'light' | 'dark') => void
+}
+
+export const ThemeContext = createContext({
+    theme: 'light',
+    setTheme: (theme: 'light' | 'dark') => {},
+} as IThemeContext)
+
+interface IProps {
+    children: ReactElement
+}
+export const ThemeProvider = ({ children }: IProps) => {
+    const [theme, setTheme] = useState<'light' | 'dark'>('light')
     const colorTheme = theme === 'dark' ? 'light' : 'dark'
 
     useEffect(() => {
@@ -26,8 +36,16 @@ export default function useTheme(): [
         root.classList.remove(colorTheme)
         root.classList.add(theme)
         localStorage.setItem('theme', theme)
-        window.dispatchEvent(new Event('storage'))
     }, [theme, colorTheme])
 
-    return [theme, setTheme]
+    return (
+        <ThemeContext.Provider
+            value={{
+                theme,
+                setTheme,
+            }}
+        >
+            {children}
+        </ThemeContext.Provider>
+    )
 }
