@@ -29,13 +29,15 @@ export const WalletProvider = ({ children }: IProps) => {
     const provider = getPhantomProvider()
 
     useEffect(() => {
-        provider.on('connect', () => {
-            setIsWalletConnected(true)
-        })
+        if (provider) {
+            provider.on('connect', () => {
+                setIsWalletConnected(true)
+            })
 
-        provider.on('disconnect', () => {
-            setIsWalletConnected(false)
-        })
+            provider.on('disconnect', () => {
+                setIsWalletConnected(false)
+            })
+        }
     }, [provider])
 
     useEffectAsync(async () => {
