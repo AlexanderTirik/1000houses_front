@@ -12,9 +12,12 @@ Project built with Typescript, React, Vite and Tailwind CSS.
 ## Deployment
 
 1. Install project dependencies
-   `npm install` 2. Build the project
-   `npm run build` 3. Preview the build
-   `npm run preview` 4. Deploy to staging
+   `npm install`
+2. Build the project
+   `npm run build`
+3. Preview the build
+   `npm run preview`
+4. Deploy to staging
 
 ## Branches
 
