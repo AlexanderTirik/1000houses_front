@@ -21,10 +21,10 @@ Project built with Typescript, React, Vite and Tailwind CSS.
 
 ## Branches
 
-# staging
+### staging
 
 Create all pull requests to staging, and changes will be automatically built and deployed to staging. This is the branch that will be used for testing.
 
-# main
+### main
 
 This is the branch that will be used for production. Changes will be automatically built and deployed to production. Pull changes only from staging.
