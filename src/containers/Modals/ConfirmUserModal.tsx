@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
 import { ModalHeader } from '@components/ModalHeader'
-import { AccountContext } from '../context/AccountContext'
+import { AccountContext } from '../../context/AccountContext'
 import { CognitoUser } from 'amazon-cognito-identity-js'
-import userPool from '../config/userPool'
+import userPool from '../../config/userPool'
 
 interface IProps {
     onRequestClose?: () => void

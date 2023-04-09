@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
 import { SignUpModal } from './SignUpModal'
-import { ModalContext } from '../context/ModalContext'
+import { ModalContext } from '../../context/ModalContext'
 import { useAuthError } from '@hooks/useAuthError'
-import { validateEmail } from '../helpers/validation'
+import { validateEmail } from '../../helpers/validation'
 import { ModalHeader } from '@components/ModalHeader'
-import { CognitoErrors } from '../enums/CognitoErrors'
-import { AccountContext } from '../context/AccountContext'
+import { CognitoErrors } from '../../enums/CognitoErrors'
+import { AccountContext } from '../../context/AccountContext'
 
 interface IProps {
     onRequestClose?: () => void

@@ -6,7 +6,7 @@ import {
 import { ReactElement, createContext, useContext, useState } from 'react'
 import userPool from '../config/userPool'
 import { CognitoErrors } from '../enums/CognitoErrors'
-import { ConfirmUserModal } from '@containers/ConfirmUserModal'
+import { ConfirmUserModal } from '@containers/Modals/ConfirmUserModal'
 import { ModalContext } from './ModalContext'
 
 interface IAccountContext {
