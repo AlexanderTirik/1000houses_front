@@ -48,6 +48,10 @@
         "Wallet not installed": "Wallet not installed",
         "Failed to connect. Try again": "Failed to connect. Try again",
         "Disconnect wallet": "Disconnect wallet",
-        "Connecting...": "Connecting..."
+        "Connecting...": "Connecting...",
+        "Forgot password": "Forgot password",
+        "Reset password": "Reset password",
+        "Back": "Back",
+        "We sent you reset password code to your email": "We sent you reset password code to your email"
     }
 }

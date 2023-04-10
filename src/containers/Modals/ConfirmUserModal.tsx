@@ -6,22 +6,28 @@ import { ModalHeader } from '@components/ModalHeader'
 import { AccountContext } from '../../context/AccountContext'
 import { CognitoUser } from 'amazon-cognito-identity-js'
 import userPool from '../../config/userPool'
+import { ModalContext } from '../../context/ModalContext'
+import { LoginModal } from './LoginModal'
+import { SignUpModal } from './SignUpModal'
 
 interface IProps {
     onRequestClose?: () => void
     email: string
     password?: string
+    from: 'login' | 'signup'
 }
 
 export const ConfirmUserModal: FunctionComponent<IProps> = ({
     onRequestClose = () => {},
     email,
     password,
+    from,
 }: IProps) => {
     const [t, i18n] = useTranslation()
     const [confirmationCode, setConfirmationCode] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const { auth } = useContext(AccountContext)
+    const { showModal } = useContext(ModalContext)
 
     const onConfirm = async () => {
         const user = new CognitoUser({
@@ -41,6 +47,14 @@ export const ConfirmUserModal: FunctionComponent<IProps> = ({
         onRequestClose()
     }
 
+    const onBack = () => {
+        if (from === 'login') {
+            showModal(<LoginModal />, { givenEmail: email })
+        } else {
+            showModal(<SignUpModal />, { givenEmail: email })
+        }
+    }
+
     return (
         <div
             onClick={(e) => e.stopPropagation()}
@@ -55,12 +69,14 @@ export const ConfirmUserModal: FunctionComponent<IProps> = ({
                     {t('We sent you confirmation code to your email')}
                 </div>
                 <div>
+                    <Input value={email} className="mb-4" disabled />
                     {errorMessage ? (
                         <span className="ml-4 mb-4 text-red-500">
                             {errorMessage}
                         </span>
                     ) : null}
                     <Input
+                        value={confirmationCode}
                         onChange={setConfirmationCode}
                         placeholder={t('Confirmation code') as string}
                         className={`mb-4 ${
@@ -72,6 +88,13 @@ export const ConfirmUserModal: FunctionComponent<IProps> = ({
             <div className="mt-3">
                 <Button onClick={onConfirm} className="mb-2 w-full">
                     {t('Confirm')}
+                </Button>
+                <Button
+                    onClick={onBack}
+                    variant="secondary"
+                    className="mb-2 w-full"
+                >
+                    {t('Back')}
                 </Button>
             </div>
         </div>

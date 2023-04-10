@@ -3,7 +3,13 @@ import {
     CognitoUser,
     CognitoUserSession,
 } from 'amazon-cognito-identity-js'
-import { ReactElement, createContext, useContext, useState } from 'react'
+import {
+    ReactElement,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from 'react'
 import userPool from '../config/userPool'
 import { CognitoErrors } from '../enums/CognitoErrors'
 import { ConfirmUserModal } from '@containers/Modals/ConfirmUserModal'
@@ -31,6 +37,10 @@ interface IProps {
 export const AccountProvider = ({ children }: IProps) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { showModal } = useContext(ModalContext)
+
+    useEffect(() => {
+        updateAuthStatus()
+    }, [])
 
     const updateAuthStatus = async () => {
         try {
@@ -77,8 +87,8 @@ export const AccountProvider = ({ children }: IProps) => {
 
             cognitoUser.authenticateUser(authDetails, {
                 onSuccess: (result) => {
-                    resolve(result)
                     setIsLoggedIn(true)
+                    resolve(result)
                 },
                 onFailure: (err) => {
                     if (err.name == CognitoErrors.UserNotConfirmedException) {
@@ -89,10 +99,17 @@ export const AccountProvider = ({ children }: IProps) => {
                                     setIsLoggedIn(false)
                                     return
                                 }
-                                showModal(<ConfirmUserModal email={email} />, {
-                                    email,
-                                    password,
-                                })
+                                showModal(
+                                    <ConfirmUserModal
+                                        email={email}
+                                        from="login"
+                                    />,
+                                    {
+                                        email,
+                                        password,
+                                        from: 'login',
+                                    }
+                                )
                             }
                         )
                         return

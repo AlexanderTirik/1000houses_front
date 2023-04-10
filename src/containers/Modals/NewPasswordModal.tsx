@@ -4,63 +4,62 @@ import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
 import { ModalContext } from '../../context/ModalContext'
 import { LoginModal } from './LoginModal'
-import { validateEmail } from '../../helpers/validation'
 import { useAuthError } from '@hooks/useAuthError'
-import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
+import { CognitoUser } from 'amazon-cognito-identity-js'
 import userPool from '../../config/userPool'
 import { ModalHeader } from '@components/ModalHeader'
-import { ConfirmUserModal } from './ConfirmUserModal'
 import { CognitoErrors } from '../../enums/CognitoErrors'
+import { ForgotPasswordModal } from './ForgotPasswordModal'
+import { AccountContext } from '../../context/AccountContext'
 
 interface IProps {
     onRequestClose?: () => void
     givenEmail?: string
 }
 
-export const SignUpModal: FunctionComponent<IProps> = ({
-    onRequestClose,
+export const NewPasswordModal: FunctionComponent<IProps> = ({
+    onRequestClose = () => {},
     givenEmail = '',
 }: IProps) => {
     const [t, i18n] = useTranslation()
-    const [email, setEmail] = useState(givenEmail)
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [confirmationCode, setConfirmationCode] = useState('')
     const [errorType, errorMessage, setError, cleanError] = useAuthError()
     const { showModal } = useContext(ModalContext)
+    const { updateAuthStatus } = useContext(AccountContext)
 
-    const onSignUp = () => {
+    const onNewPassword = () => {
         if (password !== confirmPassword || !password.length) {
             setError(t('Passwords do not match') as string, 'password')
             return
         }
-
-        if (!validateEmail(email)) {
-            setError(t('Wrong email') as string, 'email')
-            return
-        }
-        const attributes = []
-        attributes.push(
-            new CognitoUserAttribute({ Name: 'email', Value: email })
-        )
-        userPool.signUp(email, password, attributes, [], (err, data) => {
-            if (err) {
+        const cognitoUser = new CognitoUser({
+            Username: givenEmail,
+            Pool: userPool,
+        })
+        cognitoUser.confirmPassword(confirmationCode, password, {
+            onSuccess() {
+                showModal(<LoginModal />, { givenEmail })
+            },
+            onFailure(err) {
                 switch (err.name) {
-                    case CognitoErrors.UsernameExistsException: {
-                        setError(t('Email already exists'), 'email')
-                        return
+                    case CognitoErrors.CodeMismatchException: {
+                        setError(
+                            t('Wrong confirmation code') as string,
+                            'confirm'
+                        )
+                        break
                     }
                     default: {
-                        setError(t('Something went wrong, try again'), 'email')
-                        return
+                        setError(
+                            t('Something went wrong, try again') as string,
+                            'all'
+                        )
+                        break
                     }
                 }
-            }
-            cleanError()
-            showModal(<ConfirmUserModal from="signup" email={email} />, {
-                email,
-                password,
-                from: 'signup',
-            })
+            },
         })
     }
 
@@ -74,23 +73,30 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                     title={t('Welcome')}
                     onRequestClose={onRequestClose}
                 />
+                <div className="mb-2 dark:text-white">
+                    {t('We sent you reset password code to your email')}
+                </div>
                 <div>
-                    {errorMessage && errorType === 'email' ? (
+                    {errorMessage &&
+                    (errorType == 'confirm' || errorType == 'all') ? (
                         <span className="ml-4 mb-4 text-red-500">
                             {errorMessage}
                         </span>
                     ) : null}
                     <Input
-                        value={email}
-                        onChange={setEmail}
-                        placeholder={t('Email') as string}
-                        className={`mb-4 ${
-                            errorType === 'email'
+                        value={confirmationCode}
+                        onChange={setConfirmationCode}
+                        placeholder={t('Confirmation code') as string}
+                        className={`mb-2 ${
+                            errorType === 'confirm' || errorType == 'all'
                                 ? 'border border-red-500 '
                                 : ''
                         }`}
                     />
-                    {errorMessage && errorType === 'password' ? (
+                    {givenEmail ? (
+                        <Input value={givenEmail} disabled className="mb-2" />
+                    ) : null}
+                    {errorMessage && errorType == 'password' ? (
                         <span className="ml-4 mb-4 text-red-500">
                             {errorMessage}
                         </span>
@@ -101,7 +107,7 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                         onChange={setPassword}
                         placeholder={t('Password') as string}
                         className={`mb-2 ${
-                            errorType === 'password'
+                            errorType === 'password' || errorType == 'all'
                                 ? 'border border-red-500 '
                                 : ''
                         }`}
@@ -112,7 +118,7 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                         onChange={setConfirmPassword}
                         placeholder={t('Confirm password') as string}
                         className={
-                            errorType === 'password'
+                            errorType === 'password' || errorType == 'all'
                                 ? 'border border-red-500'
                                 : ''
                         }
@@ -120,17 +126,19 @@ export const SignUpModal: FunctionComponent<IProps> = ({
                 </div>
             </div>
             <div className="mt-3">
-                <Button onClick={onSignUp} className="mb-2 w-full">
-                    {t('Sign up')}
+                <Button onClick={onNewPassword} className="mb-2 w-full">
+                    {t('Reset password')}
                 </Button>
                 <Button
                     variant="secondary"
                     className="w-full"
                     onClick={() =>
-                        showModal(<LoginModal />, { givenEmail: email })
+                        showModal(<ForgotPasswordModal />, {
+                            givenEmail,
+                        })
                     }
                 >
-                    {t('Login')}
+                    {t('Back')}
                 </Button>
             </div>
         </div>
