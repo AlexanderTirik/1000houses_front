@@ -1,5 +1,5 @@
 import { cloneElement, useContext } from 'react'
-import { ModalContext } from '../context/ModalContext'
+import { ModalContext } from '../../context/ModalContext'
 
 export const ModalRoot = () => {
     const { component, props, hideModal } = useContext(ModalContext)

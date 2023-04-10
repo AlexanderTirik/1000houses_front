@@ -3,22 +3,26 @@ import { useTranslation } from 'react-i18next'
 import { FunctionComponent, useContext, useState } from 'react'
 import { Button } from '@components/Button'
 import { SignUpModal } from './SignUpModal'
-import { ModalContext } from '../context/ModalContext'
+import { ModalContext } from '../../context/ModalContext'
 import { useAuthError } from '@hooks/useAuthError'
-import { validateEmail } from '../helpers/validation'
+import { validateEmail } from '../../helpers/validation'
 import { ModalHeader } from '@components/ModalHeader'
-import { CognitoErrors } from '../enums/CognitoErrors'
-import { AccountContext } from '../context/AccountContext'
+import { CognitoErrors } from '../../enums/CognitoErrors'
+import { AccountContext } from '../../context/AccountContext'
+import { LinkButton } from '@components/LinkButton'
+import { ForgotPasswordModal } from './ForgotPasswordModal'
 
 interface IProps {
     onRequestClose?: () => void
+    givenEmail?: string
 }
 
 export const LoginModal: FunctionComponent<IProps> = ({
     onRequestClose = () => {},
+    givenEmail = '',
 }: IProps) => {
     const [t, i18n] = useTranslation()
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState(givenEmail)
     const [password, setPassword] = useState('')
     const [errorType, errorMessage, setError, cleanError] = useAuthError()
 
@@ -32,7 +36,7 @@ export const LoginModal: FunctionComponent<IProps> = ({
 
     const onLogin = async () => {
         if (!validateEmail(email)) {
-            setError('email', t('Wrong email') as string)
+            setError(t('Wrong email') as string, 'email')
             return
         }
         try {
@@ -42,13 +46,13 @@ export const LoginModal: FunctionComponent<IProps> = ({
         } catch (err: any) {
             switch (err.name) {
                 case CognitoErrors.NotAuthorizedException: {
-                    setError('all', t('Incorrect email or password') as string)
+                    setError(t('Incorrect email or password') as string, 'all')
                     return
                 }
                 default: {
                     setError(
-                        'all',
-                        t('Something went wrong, try again') as string
+                        t('Something went wrong, try again') as string,
+                        'all'
                     )
                     return
                 }
@@ -75,6 +79,7 @@ export const LoginModal: FunctionComponent<IProps> = ({
                         </span>
                     ) : null}
                     <Input
+                        value={email}
                         onChange={setEmail}
                         placeholder={t('Email') as string}
                         className={`mb-4 ${
@@ -89,15 +94,27 @@ export const LoginModal: FunctionComponent<IProps> = ({
                         </span>
                     ) : null}
                     <Input
+                        value={password}
                         onChange={setPassword}
                         placeholder={t('Password') as string}
-                        className={`mb-2 ${
+                        className={`${
                             errorType === 'password' || errorType === 'all'
                                 ? 'border border-red-500 '
                                 : ''
                         }`}
                         type="password"
                     />
+                    <div className="my-2 flex w-full justify-end">
+                        <LinkButton
+                            onClick={() =>
+                                showModal(<ForgotPasswordModal />, {
+                                    givenEmail: email,
+                                })
+                            }
+                        >
+                            {t('Forgot password')}
+                        </LinkButton>
+                    </div>
                 </div>
             </div>
             <div>
@@ -107,7 +124,9 @@ export const LoginModal: FunctionComponent<IProps> = ({
                 <Button
                     variant="secondary"
                     className="w-full"
-                    onClick={() => showModal(<SignUpModal />)}
+                    onClick={() =>
+                        showModal(<SignUpModal />, { givenEmail: email })
+                    }
                 >
                     {t('Sign up')}
                 </Button>
