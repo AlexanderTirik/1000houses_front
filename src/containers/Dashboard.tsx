@@ -1,20 +1,19 @@
 import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Chart } from '@components/Chart/index'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { AccountContext } from '../context/AccountContext'
+import { TokenInput } from './TokenInput'
+import { WalletContext } from '../context/WalletContext'
 
 export const Dashboard = () => {
+    const { isLoggedIn } = useContext(AccountContext)
+    const { isWalletConnected } = useContext(WalletContext)
     const [t, i18n] = useTranslation()
     return (
-        <div className="m-5 flex flex-col items-center lg:m-16 lg:flex-row-reverse">
-            <div className="flex w-full flex-col">
-                <ButtonCheckbox
-                    labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
-                    className="mb-2"
-                />
-                <Chart />
-            </div>
-            <div className="flex w-full flex-col lg:mr-16 lg:w-1/2">
+        <div className="m-5 flex flex-col items-center justify-center lg:m-16 lg:flex-row lg:items-start">
+            <div className="flex w-full flex-col lg:w-1/2">
                 <div className="flex items-stretch">
                     <DashboardCell
                         className="flex-1"
@@ -64,6 +63,16 @@ export const Dashboard = () => {
                     primaryText="3500"
                     secondaryText="USDC"
                 />
+            </div>
+            {isLoggedIn || isWalletConnected ? (
+                <TokenInput className="lg:mx-10" />
+            ) : null}
+            <div className="flex w-full flex-col">
+                <ButtonCheckbox
+                    labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
+                    className="mb-2"
+                />
+                <Chart />
             </div>
         </div>
     )

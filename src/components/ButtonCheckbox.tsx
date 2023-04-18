@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 interface IProps {
     onClicks?: (() => void)[]
     labels: string[]
@@ -12,20 +10,12 @@ export const ButtonCheckbox = ({
     activeIndex,
     className,
 }: IProps) => {
-    const [active, setActive] = useState(activeIndex || 0)
-    useEffect(() => {
-        if (onClicks && activeIndex) {
-            onClicks[activeIndex]()
-        }
-    }, [])
-
     return (
         <div className={'flex flex-row ' + className}>
             {labels.map((label, index) => (
                 <button
                     key={index}
                     onClick={() => {
-                        setActive(index)
                         if (onClicks) {
                             onClicks[index]()
                         }
@@ -43,7 +33,7 @@ export const ButtonCheckbox = ({
                     dark:bg-black
                     dark:hover:border-white 
                     dark:hover:text-white ` +
-                        (active === index
+                        (activeIndex === index
                             ? `border-black
                             text-black
                             dark:border-white
