@@ -18,7 +18,6 @@ const Home = (): ReactElement => {
         if (isLoggedIn) {
             return
         } else {
-            console.log('chel')
             toastError(t('Not authorized'), 'landingReport')
         }
     }

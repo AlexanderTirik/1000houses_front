@@ -2,14 +2,14 @@ import { CloseIcon } from '@assets/icons/CloseIcon'
 import { WalletIcon } from '@assets/icons/WalletIcon'
 import { Button } from '@components/Button'
 import { useTranslation } from 'react-i18next'
-import { ModalContext } from '../context/ModalContext'
+import { ModalContext } from '../../context/ModalContext'
 import { LanguageSwitch } from '@components/LanguageSwitch'
 import { ThemeSwitch } from '@components/ThemeSwitch'
 import { SignUpModal } from './SignUpModal'
 import { LoginModal } from './LoginModal'
 import { useContext } from 'react'
 import { ConnectWalletModal } from './ConnectWalletModal'
-import { WalletContext } from '../context/WalletContext'
+import { WalletContext } from '../../context/WalletContext'
 
 interface IProps {}
 export const SideMenu = ({}: IProps) => {

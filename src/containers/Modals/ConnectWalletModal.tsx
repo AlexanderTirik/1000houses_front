@@ -3,9 +3,9 @@ import { FunctionComponent, useContext } from 'react'
 import { Button } from '@components/Button'
 import { ModalHeader } from '@components/ModalHeader'
 import { PhantomWalletIcon } from '@assets/icons/PhantomWalletIcon'
-import { getPhantomProvider } from '../helpers/phantom'
+import { getPhantomProvider } from '../../helpers/phantom'
 import useToast from '@hooks/useToast'
-import { WalletContext } from '../context/WalletContext'
+import { WalletContext } from '../../context/WalletContext'
 
 interface IProps {
     onRequestClose?: () => void

@@ -48,6 +48,21 @@
         "Wallet not installed": "Wallet not installed",
         "Failed to connect. Try again": "Failed to connect. Try again",
         "Disconnect wallet": "Disconnect wallet",
-        "Connecting...": "Connecting..."
+        "Connecting...": "Connecting...",
+        "Forgot password": "Forgot password",
+        "Reset password": "Reset password",
+        "Back": "Back",
+        "We sent you reset password code to your email": "We sent you reset password code to your email",
+        "Token amount": "Token amount",
+        "Stake": "Stake",
+        "Buy": "Buy",
+        "Input": "Input",
+        "Output": "Output",
+        "Unstake": "Unstake",
+        "Sell": "Sell",
+        "Balance": "Balance",
+        "Staked": "Staked",
+        "Recipient": "Recipient",
+        "To input, send tokens to address below": "To input, send tokens to address below"
     }
 }

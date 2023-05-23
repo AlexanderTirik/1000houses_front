@@ -48,6 +48,21 @@
         "Wallet not installed": "Кошелек не установлен",
         "Failed to connect. Try again": "Не удалось подключиться. Попробуйте еще раз",
         "Disconnect wallet": "Отключить кошелек",
-        "Connecting...": "Подключение..."
+        "Connecting...": "Подключение...",
+        "Forgot password": "Забыли пароль?",
+        "Reset password": "Сбросить пароль",
+        "Back": "Назад",
+        "We sent you reset password code to your email": "Мы отправили вам код сброса пароля на вашу почту",
+        "Token amount": "Количество токенов",
+        "Stake": "Стейк",
+        "Buy": "Купить",
+        "Input": "Ввести",
+        "Output": "Вывести",
+        "Unstake": "Анстейк",
+        "Sell": "Продать",
+        "Balance": "Баланс",
+        "Staked": "Застейкано",
+        "Recipient": "Получатель",
+        "To input, send tokens to address below": "Для ввода - отправьте токены на адрес ниже"
     }
 }
