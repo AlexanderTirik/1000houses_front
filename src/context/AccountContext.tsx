@@ -1,8 +1,4 @@
-import {
-    AuthenticationDetails,
-    CognitoUser,
-    CognitoUserSession,
-} from 'amazon-cognito-identity-js'
+import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js'
 import {
     ReactElement,
     createContext,
@@ -14,10 +10,11 @@ import userPool from '../config/userPool'
 import { CognitoErrors } from '../enums/CognitoErrors'
 import { ConfirmUserModal } from '@containers/Modals/ConfirmUserModal'
 import { ModalContext } from './ModalContext'
+import { getSession } from '../helpers/getSession'
 
 interface IAccountContext {
+    email: string
     auth: (email: string, password: string) => Promise<any>
-    getSession: () => Promise<any>
     updateAuthStatus: () => Promise<void>
     logout: () => void
     isLoggedIn: boolean
@@ -25,16 +22,17 @@ interface IAccountContext {
 
 export const AccountContext = createContext({
     auth: (email: string, password: string) => {},
-    getSession: () => {},
     updateAuthStatus: () => {},
     logout: () => {},
     isLoggedIn: false,
+    email: '',
 } as IAccountContext)
 
 interface IProps {
     children: ReactElement
 }
 export const AccountProvider = ({ children }: IProps) => {
+    const [email, setEmail] = useState<string>('')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { showModal } = useContext(ModalContext)
 
@@ -44,33 +42,12 @@ export const AccountProvider = ({ children }: IProps) => {
 
     const updateAuthStatus = async () => {
         try {
-            await getSession()
+            const session = await getSession()
+            setEmail(session.getIdToken().payload.email.toLowerCase())
             setIsLoggedIn(true)
         } catch (e) {
             setIsLoggedIn(false)
         }
-    }
-
-    const getSession = () => {
-        return new Promise((resolve, reject) => {
-            const cognitoUser = userPool.getCurrentUser()
-            if (cognitoUser) {
-                cognitoUser.getSession(
-                    (err: any, session: CognitoUserSession) => {
-                        if (err) {
-                            setIsLoggedIn(false)
-                            reject(err)
-                        } else {
-                            setIsLoggedIn(true)
-                            resolve(session)
-                        }
-                    }
-                )
-            } else {
-                setIsLoggedIn(false)
-                reject({ name: CognitoErrors.NotAuthorizedException })
-            }
-        })
     }
 
     const auth = async (email: string, password: string) => {
@@ -87,6 +64,7 @@ export const AccountProvider = ({ children }: IProps) => {
 
             cognitoUser.authenticateUser(authDetails, {
                 onSuccess: (result) => {
+                    setEmail(email)
                     setIsLoggedIn(true)
                     resolve(result)
                 },
@@ -137,10 +115,10 @@ export const AccountProvider = ({ children }: IProps) => {
         <AccountContext.Provider
             value={{
                 auth,
-                getSession,
                 logout,
                 updateAuthStatus,
                 isLoggedIn,
+                email,
             }}
         >
             {children}

@@ -61,6 +61,8 @@
         "Unstake": "Unstake",
         "Sell": "Sell",
         "Balance": "Balance",
-        "Staked": "Staked"
+        "Staked": "Staked",
+        "Recipient": "Recipient",
+        "To input, send tokens to address below": "To input, send tokens to address below"
     }
 }
