@@ -4,8 +4,8 @@ import { DashboardCell } from '@components/Dashboard/DashboardCell'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccountContext } from '../context/AccountContext'
-import { TokenInput } from './TokenInput'
 import { WalletContext } from '../context/WalletContext'
+import { TokenInput } from './TokenInput'
 
 export const Dashboard = () => {
     const { isLoggedIn } = useContext(AccountContext)

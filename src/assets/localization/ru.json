@@ -61,6 +61,8 @@
         "Unstake": "Анстейк",
         "Sell": "Продать",
         "Balance": "Баланс",
-        "Staked": "Застейкано"
+        "Staked": "Застейкано",
+        "Recipient": "Получатель",
+        "To input, send tokens to address below": "Для ввода - отправьте токены на адрес ниже"
     }
 }

@@ -9,7 +9,11 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@coral-xyz/anchor": "^0.27.0",
+        "@solana/spl-token": "^0.3.7",
+        "@solana/web3.js": "^1.76.0",
         "amazon-cognito-identity-js": "^6.2.0",
+        "buffer": "^6.0.3",
         "i18next": "^22.4.13",
         "i18next-browser-languagedetector": "^7.0.1",
         "react": "^18.2.0",

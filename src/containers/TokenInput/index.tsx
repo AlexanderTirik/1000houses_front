@@ -2,20 +2,28 @@ import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Input } from '@components/Input'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Dashboard } from './Dashboard'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
 import { Button } from '@components/Button'
+import { onOutputClick } from './output'
+import { InputTokensMenu } from './InputTokensMenu'
 
 interface IProps {
     className?: string
 }
 
 export const TokenInput = ({ className }: IProps) => {
-    const [value, setValue] = useState('')
+    const [amount, setAmount] = useState('')
+    const [recipient, setRecipient] = useState('')
     const [state, setState] = useState<
         'Stake' | 'Buy' | 'Input' | 'Unstake' | 'Sell' | 'Output'
     >('Stake')
     const [t, i18n] = useTranslation()
+    const onSubmit = async () => {
+        if (state === 'Output') {
+            onOutputClick(amount, recipient)
+        }
+    }
+
     return (
         <div
             className={
@@ -46,12 +54,25 @@ export const TokenInput = ({ className }: IProps) => {
                     ]}
                     activeIndex={getTopActiveState(state)}
                 />
-                <Input
-                    className="my-4 text-xl lg:my-2"
-                    value={value}
-                    placeholder={t('Token amount') as string}
-                    onChange={setValue}
-                />
+                {state != 'Input' ? (
+                    <Input
+                        className="my-2 text-xl lg:my-2"
+                        value={amount}
+                        placeholder={t('Token amount') as string}
+                        onChange={setAmount}
+                    />
+                ) : (
+                    <InputTokensMenu />
+                )}
+
+                {state == 'Output' ? (
+                    <Input
+                        className="my-2 text-xl lg:my-2"
+                        value={amount}
+                        placeholder={t('Recipient') as string}
+                        onChange={setRecipient}
+                    />
+                ) : null}
                 <ButtonCheckbox
                     className="justify-between text-xl"
                     labels={[t('Unstake'), t('Sell'), t('Output')]}
@@ -63,9 +84,11 @@ export const TokenInput = ({ className }: IProps) => {
                     activeIndex={getBottomActiveState(state)}
                 />
             </div>
-            <Button className="w-full text-xl" onClick={() => {}}>
-                {t(state)}
-            </Button>
+            {state != 'Input' ? (
+                <Button className="w-full text-xl" onClick={onSubmit}>
+                    {t(state)}
+                </Button>
+            ) : null}
         </div>
     )
 }
