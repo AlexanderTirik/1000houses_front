@@ -10,13 +10,16 @@ import { LoginModal } from './LoginModal'
 import { useContext } from 'react'
 import { ConnectWalletModal } from './ConnectWalletModal'
 import { WalletContext } from '../../context/WalletContext'
+import { AuthContext } from '../../context/AuthContext'
+import { AccountContext } from '../../context/AccountContext'
 
 interface IProps {}
 export const SideMenu = ({}: IProps) => {
     const [t, i18n] = useTranslation()
     const { hideModal, showModal } = useContext(ModalContext)
-    const { isWalletConnected, disconnectPhantom, isConnecting } =
-        useContext(WalletContext)
+    const { authType, isLoggedIn } = useContext(AuthContext)
+    const { logout } = useContext(AccountContext)
+    const { disconnectPhantom, isConnecting } = useContext(WalletContext)
     return (
         <div
             onClick={(e) => e.stopPropagation()}
@@ -31,17 +34,37 @@ export const SideMenu = ({}: IProps) => {
                 </header>
 
                 <div className="mt-4 flex flex-col">
-                    {!isWalletConnected ? (
-                        <Button
-                            onClick={() => showModal(<ConnectWalletModal />)}
-                            icon={<WalletIcon />}
-                            className="justify-center py-5"
-                        >
-                            {isConnecting
-                                ? t('Connecting...')
-                                : t('Connect wallet')}
-                        </Button>
-                    ) : (
+                    {!isLoggedIn ? (
+                        <>
+                            <Button
+                                onClick={() =>
+                                    showModal(<ConnectWalletModal />)
+                                }
+                                icon={<WalletIcon />}
+                                className="justify-center py-5"
+                            >
+                                {isConnecting
+                                    ? t('Connecting...')
+                                    : t('Connect wallet')}
+                            </Button>
+                            <div className="mt-1 flex">
+                                <Button
+                                    onClick={() => showModal(<SignUpModal />)}
+                                    variant="tertiary"
+                                    className="flex-1 justify-center py-5"
+                                >
+                                    {t('Sign up')}
+                                </Button>
+                                <Button
+                                    onClick={() => showModal(<LoginModal />)}
+                                    variant="secondary"
+                                    className="mr-1 flex-1 justify-center py-5"
+                                >
+                                    {t('Login')}
+                                </Button>
+                            </div>
+                        </>
+                    ) : authType == 'wallet' ? (
                         <Button
                             onClick={disconnectPhantom}
                             icon={<WalletIcon />}
@@ -49,23 +72,15 @@ export const SideMenu = ({}: IProps) => {
                         >
                             {t('Disconnect wallet')}
                         </Button>
-                    )}
-                    <div className="mt-1 flex">
+                    ) : (
                         <Button
-                            onClick={() => showModal(<SignUpModal />)}
+                            onClick={logout}
                             variant="tertiary"
-                            className="flex-1 justify-center py-5"
+                            className="justify-center py-5"
                         >
-                            {t('Sign up')}
+                            {t('Logout')}
                         </Button>
-                        <Button
-                            onClick={() => showModal(<LoginModal />)}
-                            variant="secondary"
-                            className="mr-1 flex-1 justify-center py-5"
-                        >
-                            {t('Login')}
-                        </Button>
-                    </div>
+                    )}
                 </div>
             </div>
             <footer className="h-16 border-t border-t-white px-5 dark:border-t-gray-700">
