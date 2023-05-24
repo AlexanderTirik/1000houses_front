@@ -13,13 +13,15 @@ import { useContext } from 'react'
 import { AccountContext } from '../context/AccountContext'
 import { ConnectWalletModal } from './Modals/ConnectWalletModal'
 import { WalletContext } from '../context/WalletContext'
+import { AuthContext } from '../context/AuthContext'
 
 export const Header = () => {
     const [t] = useTranslation()
     const { showModal } = useContext(ModalContext)
-    const { logout, isLoggedIn } = useContext(AccountContext)
-    const { isWalletConnected, disconnectPhantom, isConnecting } =
-        useContext(WalletContext)
+    const { isLoggedIn, authType } = useContext(AuthContext)
+
+    const { logout } = useContext(AccountContext)
+    const { disconnectPhantom, isConnecting } = useContext(WalletContext)
 
     return (
         <header className="flex h-20 w-full flex-row items-center justify-between border-b border-solid border-white bg-transparent px-8 lg:h-20 lg:px-16">
@@ -45,25 +47,23 @@ export const Header = () => {
                             {' '}
                             {t('Login')}
                         </Button>
+                        <Button
+                            onClick={() => showModal(<ConnectWalletModal />)}
+                            icon={<WalletIcon />}
+                            className="ml-7"
+                        >
+                            {isConnecting
+                                ? t('Connecting...')
+                                : t('Connect wallet')}
+                        </Button>
                     </>
-                ) : (
+                ) : authType == 'cognito' ? (
                     <Button
                         onClick={logout}
                         variant="tertiary"
                         className="ml-7"
                     >
                         {t('Logout')}
-                    </Button>
-                )}
-                {!isWalletConnected ? (
-                    <Button
-                        onClick={() => showModal(<ConnectWalletModal />)}
-                        icon={<WalletIcon />}
-                        className="ml-7"
-                    >
-                        {isConnecting
-                            ? t('Connecting...')
-                            : t('Connect wallet')}
                     </Button>
                 ) : (
                     <Button
