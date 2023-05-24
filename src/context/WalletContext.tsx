@@ -1,20 +1,25 @@
-import { ReactElement, createContext, useEffect, useState } from 'react'
+import {
+    ReactElement,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from 'react'
 import { getPhantomProvider } from '../helpers/phantom'
 import useToast from '@hooks/useToast'
 import { useTranslation } from 'react-i18next'
 import { useEffectAsync } from '@hooks/useEffectAsync'
+import { AuthContext } from './AuthContext'
 
 interface IWalletContext {
     connectPhantom: () => void
     disconnectPhantom: () => void
-    isWalletConnected: boolean
     isConnecting: boolean
 }
 
 export const WalletContext = createContext({
     connectPhantom: () => {},
     disconnectPhantom: () => {},
-    isWalletConnected: false,
     isConnecting: false,
 } as IWalletContext)
 
@@ -23,10 +28,14 @@ interface IProps {
 }
 export const WalletProvider = ({ children }: IProps) => {
     const [t] = useTranslation()
-    const [isWalletConnected, setIsWalletConnected] = useState(false)
     const [isConnecting, setIsConnecting] = useState(false)
     const { toastError } = useToast()
     const provider = getPhantomProvider()
+    const { updateLoggedIn } = useContext(AuthContext)
+
+    const setIsWalletConnected = (state: boolean) => {
+        updateLoggedIn(state, 'wallet')
+    }
 
     useEffect(() => {
         if (provider) {
@@ -75,7 +84,6 @@ export const WalletProvider = ({ children }: IProps) => {
             value={{
                 connectPhantom,
                 disconnectPhantom,
-                isWalletConnected,
                 isConnecting,
             }}
         >

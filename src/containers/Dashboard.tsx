@@ -3,13 +3,11 @@ import { Chart } from '@components/Chart/index'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AccountContext } from '../context/AccountContext'
-import { WalletContext } from '../context/WalletContext'
 import { TokenInput } from './TokenInput'
+import { AuthContext } from '../context/AuthContext'
 
 export const Dashboard = () => {
-    const { isLoggedIn } = useContext(AccountContext)
-    const { isWalletConnected } = useContext(WalletContext)
+    const { isLoggedIn } = useContext(AuthContext)
     const [t, i18n] = useTranslation()
     return (
         <div className="m-5 flex flex-col items-center justify-center lg:m-16 lg:flex-row lg:items-start">
@@ -64,9 +62,7 @@ export const Dashboard = () => {
                     secondaryText="USDC"
                 />
             </div>
-            {isLoggedIn || isWalletConnected ? (
-                <TokenInput className="lg:mx-10" />
-            ) : null}
+            {isLoggedIn ? <TokenInput className="lg:mx-10" /> : null}
             <div className="flex w-full flex-col">
                 <ButtonCheckbox
                     labels={[t('Day'), t('Week'), t('Month'), t('Year')]}

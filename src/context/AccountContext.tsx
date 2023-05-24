@@ -11,21 +11,19 @@ import { CognitoErrors } from '../enums/CognitoErrors'
 import { ConfirmUserModal } from '@containers/Modals/ConfirmUserModal'
 import { ModalContext } from './ModalContext'
 import { getSession } from '../helpers/getSession'
+import { AuthContext } from './AuthContext'
 
 interface IAccountContext {
     email: string
     auth: (email: string, password: string) => Promise<any>
     updateAuthStatus: () => Promise<void>
     logout: () => void
-    isLoggedIn: boolean
 }
 
 export const AccountContext = createContext({
     auth: (email: string, password: string) => {},
     updateAuthStatus: () => {},
     logout: () => {},
-    isLoggedIn: false,
-    email: '',
 } as IAccountContext)
 
 interface IProps {
@@ -33,8 +31,12 @@ interface IProps {
 }
 export const AccountProvider = ({ children }: IProps) => {
     const [email, setEmail] = useState<string>('')
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const { showModal } = useContext(ModalContext)
+    const { updateLoggedIn } = useContext(AuthContext)
+
+    const setIsLoggedIn = (state: boolean) => {
+        updateLoggedIn(state, 'cognito')
+    }
 
     useEffect(() => {
         updateAuthStatus()
@@ -117,7 +119,6 @@ export const AccountProvider = ({ children }: IProps) => {
                 auth,
                 logout,
                 updateAuthStatus,
-                isLoggedIn,
                 email,
             }}
         >
