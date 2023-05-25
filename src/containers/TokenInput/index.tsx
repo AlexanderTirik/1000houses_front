@@ -1,17 +1,19 @@
 import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Input } from '@components/Input'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
 import { Button } from '@components/Button'
 import { onOutputClick } from './output'
 import { InputTokensMenu } from './InputTokensMenu'
+import { AuthContext } from '../../context/AuthContext'
 
 interface IProps {
     className?: string
 }
 
 export const TokenInput = ({ className }: IProps) => {
+    const { authType } = useContext(AuthContext)
     const [amount, setAmount] = useState('')
     const [recipient, setRecipient] = useState('')
     const [state, setState] = useState<
@@ -44,16 +46,31 @@ export const TokenInput = ({ className }: IProps) => {
                 />
             </div>
             <div className="mb-4 lg:mb-2">
-                <ButtonCheckbox
-                    className="justify-between text-xl"
-                    labels={[t('Stake'), t('Buy'), t('Input')]}
-                    onClicks={[
-                        () => setState('Stake'),
-                        () => setState('Buy'),
-                        () => setState('Input'),
-                    ]}
-                    activeIndex={getTopActiveState(state)}
-                />
+                <div className="flex justify-around">
+                    <Button
+                        variant="tertiary"
+                        active={state == 'Stake'}
+                        onClick={() => setState('Stake')}
+                    >
+                        {t('Stake')}
+                    </Button>
+                    <Button
+                        variant="tertiary"
+                        active={state == 'Buy'}
+                        onClick={() => setState('Buy')}
+                    >
+                        {t('Buy')}
+                    </Button>
+                    {authType == 'cognito' ? (
+                        <Button
+                            variant="tertiary"
+                            active={state == 'Input'}
+                            onClick={() => setState('Input')}
+                        >
+                            {t('Input')}
+                        </Button>
+                    ) : null}
+                </div>
                 {state != 'Input' ? (
                     <Input
                         className="my-2 text-xl lg:my-2"
@@ -73,16 +90,31 @@ export const TokenInput = ({ className }: IProps) => {
                         onChange={setRecipient}
                     />
                 ) : null}
-                <ButtonCheckbox
-                    className="justify-between text-xl"
-                    labels={[t('Unstake'), t('Sell'), t('Output')]}
-                    onClicks={[
-                        () => setState('Unstake'),
-                        () => setState('Sell'),
-                        () => setState('Output'),
-                    ]}
-                    activeIndex={getBottomActiveState(state)}
-                />
+                <div className="flex justify-around">
+                    <Button
+                        variant="tertiary"
+                        active={state == 'Unstake'}
+                        onClick={() => setState('Unstake')}
+                    >
+                        {t('Unstake')}
+                    </Button>
+                    <Button
+                        variant="tertiary"
+                        active={state == 'Sell'}
+                        onClick={() => setState('Sell')}
+                    >
+                        {t('Sell')}
+                    </Button>
+                    {authType == 'cognito' ? (
+                        <Button
+                            variant="tertiary"
+                            active={state == 'Output'}
+                            onClick={() => setState('Output')}
+                        >
+                            {t('Output')}
+                        </Button>
+                    ) : null}
+                </div>
             </div>
             {state != 'Input' ? (
                 <Button className="w-full text-xl" onClick={onSubmit}>
@@ -91,30 +123,4 @@ export const TokenInput = ({ className }: IProps) => {
             ) : null}
         </div>
     )
-}
-
-const getTopActiveState = (state: string) => {
-    switch (state) {
-        case 'Stake':
-            return 0
-        case 'Buy':
-            return 1
-        case 'Input':
-            return 2
-        default:
-            return undefined
-    }
-}
-
-const getBottomActiveState = (state: string) => {
-    switch (state) {
-        case 'Unstake':
-            return 0
-        case 'Sell':
-            return 1
-        case 'Output':
-            return 2
-        default:
-            return undefined
-    }
 }

@@ -5,6 +5,7 @@ interface IProps {
     className?: string
     variant?: 'primary' | 'secondary' | 'tertiary'
     icon?: ReactElement<{ pathClassName?: string; className?: string }>
+    active?: boolean
     disabled?: boolean
     onClick: () => void
 }
@@ -14,6 +15,7 @@ export const Button = ({
     className,
     variant = 'primary',
     disabled = false,
+    active = false,
     icon,
     onClick,
 }: IProps) => {
@@ -32,8 +34,6 @@ export const Button = ({
                 transition `,
             tertiary: `border-solid
                 border
-                border-white
-                dark:border-gray-700
                 dark:text-white
                 text-black
                 disabled:cursor-not-allowed
@@ -41,7 +41,12 @@ export const Button = ({
                 dark:disabled:text-gray-400
                 hover:border-blue
                 dark:hover:border-blue
-                transition `,
+                transition
+                ${
+                    active
+                        ? 'border-black dark:border-white'
+                        : 'border-white dark:border-gray-700'
+                } `,
         },
         icon: {
             primary: !disabled ? 'stroke-white ' : 'stroke-gray-400 ',
