@@ -18,6 +18,9 @@ export const AuthProvider = ({ children }: IProps) => {
     const [authType, setAuthType] = useState<'wallet' | 'cognito' | null>(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const updateLoggedIn = (state: boolean, type: 'wallet' | 'cognito') => {
+        if (state == true && type !== authType && authType !== null) {
+            return
+        }
         if (state) {
             setIsLoggedIn(true)
             setAuthType(type)

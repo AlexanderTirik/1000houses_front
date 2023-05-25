@@ -10,6 +10,7 @@ import useToast from '@hooks/useToast'
 import { useTranslation } from 'react-i18next'
 import { useEffectAsync } from '@hooks/useEffectAsync'
 import { AuthContext } from './AuthContext'
+import { getSession } from '../helpers/getSession'
 
 interface IWalletContext {
     connectPhantom: () => void
@@ -50,7 +51,8 @@ export const WalletProvider = ({ children }: IProps) => {
     }, [provider])
 
     useEffectAsync(async () => {
-        if (provider) {
+        const session = await getSession()
+        if (provider && !session) {
             setIsConnecting(true)
             try {
                 await provider.connect({ onlyIfTrusted: true })

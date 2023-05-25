@@ -2,7 +2,7 @@ import { CognitoUserSession } from 'amazon-cognito-identity-js'
 import userPool from '../config/userPool'
 import { CognitoErrors } from '../enums/CognitoErrors'
 
-export const getSession = (): Promise<CognitoUserSession> => {
+export const getSession = (): Promise<CognitoUserSession> | null => {
     return new Promise((resolve, reject) => {
         const cognitoUser = userPool.getCurrentUser()
         if (cognitoUser) {
@@ -16,5 +16,5 @@ export const getSession = (): Promise<CognitoUserSession> => {
         } else {
             reject({ name: CognitoErrors.NotAuthorizedException })
         }
-    })
+    }).catch(() => null) as Promise<CognitoUserSession>
 }
