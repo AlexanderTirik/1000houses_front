@@ -29,7 +29,7 @@ export const TokenInput = ({ className }: IProps) => {
     return (
         <div
             className={
-                'my-4 w-full border-y-2 border-y-white py-4 lg:mx-2 lg:my-0 lg:w-1/2 lg:border-y-0 lg:py-0 ' +
+                'my-4 w-full rounded-3xl border-y-2 border-y-white py-4 lg:mx-2 lg:my-0 lg:w-1/2 lg:border-y-0 lg:py-0 ' +
                 className
             }
         >

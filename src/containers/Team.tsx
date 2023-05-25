@@ -32,24 +32,6 @@ export const Team = () => (
                 labels={['CEO', 'Founder']}
                 photo="https://www.nationalgallery.org.uk/media/30115/gogh-vincent-van-c-face-half.jpg?rxy=0.44407894736842107,0.43656716417910446&width=430&bgcolor=fff&rnd=132138118514970000"
             />
-            <TeamMember
-                key="3"
-                name="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc in tincidunt ultricies, enim lectus
-                    ultrices magna, vitae lacinia enim nunc a ligula."
-                labels={['CEO', 'Founder']}
-                photo="https://www.artnews.com/wp-content/uploads/2022/12/1665px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_719161.jpg?w=800"
-            />
-            <TeamMember
-                key="4"
-                name="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc in tincidunt ultricies, enim lectus
-                    ultrices magna, vitae lacinia enim nunc a ligula."
-                labels={['CEO', 'Founder']}
-                photo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKAGia3COeBXxUXJ1K8G82_IlcYQqjkzYKZB53vl_v_7rroFHjb4A9diTKCf-cs9JTNro&usqp=CAU"
-            />
         </div>
     </div>
 )
