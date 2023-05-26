@@ -12,6 +12,7 @@ import { ConfirmUserModal } from '@containers/Modals/ConfirmUserModal'
 import { ModalContext } from './ModalContext'
 import { getSession } from '../helpers/getSession'
 import { AuthContext } from './AuthContext'
+import { AuthType } from '../enums/AuthType'
 
 interface IAccountContext {
     email: string
@@ -35,7 +36,7 @@ export const AccountProvider = ({ children }: IProps) => {
     const { updateLoggedIn } = useContext(AuthContext)
 
     const setIsLoggedIn = (state: boolean) => {
-        updateLoggedIn(state, 'cognito')
+        updateLoggedIn(state, AuthType.Cognito)
     }
 
     useEffect(() => {
@@ -43,11 +44,11 @@ export const AccountProvider = ({ children }: IProps) => {
     }, [])
 
     const updateAuthStatus = async () => {
-        try {
-            const session = await getSession()
+        const session = await getSession()
+        if (session) {
             setEmail(session.getIdToken().payload.email.toLowerCase())
             setIsLoggedIn(true)
-        } catch (e) {
+        } else {
             setIsLoggedIn(false)
         }
     }

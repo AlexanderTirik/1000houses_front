@@ -1,12 +1,20 @@
-import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Input } from '@components/Input'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
 import { Button } from '@components/Button'
-import { onOutputClick } from './output'
+import { onOutputClick } from './utils/onOutputClick'
 import { InputTokensMenu } from './InputTokensMenu'
 import { AuthContext } from '../../context/AuthContext'
+import { AuthType } from '../../enums/AuthType'
+import { getBalance } from './utils/getBalance'
+import { useEffectAsync } from '@hooks/useEffectAsync'
+import { WalletContext } from '../../context/WalletContext'
+import { AccountContext } from '../../context/AccountContext'
+import { getStacked } from './utils/getStacked'
+import { onStakeClick } from './utils/onStakeClick'
+import { onUnstakeClick } from './utils/onUnstakeClick'
+import useToast from '@hooks/useToast'
 
 interface IProps {
     className?: string
@@ -14,16 +22,45 @@ interface IProps {
 
 export const TokenInput = ({ className }: IProps) => {
     const { authType } = useContext(AuthContext)
+    const { address } = useContext(WalletContext)
+    const { email } = useContext(AccountContext)
+    const { toastError } = useToast()
     const [amount, setAmount] = useState('')
     const [recipient, setRecipient] = useState('')
+    const [balance, setBalance] = useState('0')
+    const [stacked, setStaked] = useState('0')
     const [state, setState] = useState<
         'Stake' | 'Buy' | 'Input' | 'Unstake' | 'Sell' | 'Output'
     >('Stake')
     const [t, i18n] = useTranslation()
+
+    const updateBalaces = async () => {
+        setBalance(await getBalance(authType, email, address))
+        setStaked(await getStacked(authType, email, address))
+    }
+
+    useEffectAsync(async () => {
+        await updateBalaces()
+    }, [])
+
     const onSubmit = async () => {
-        if (state === 'Output') {
-            onOutputClick(amount, recipient)
+        try {
+            switch (state) {
+                case 'Stake':
+                    await onStakeClick(authType, amount, address)
+                    break
+                case 'Unstake':
+                    await onUnstakeClick(authType, amount, address)
+                    break
+                case 'Output':
+                    await onOutputClick(authType, amount, recipient)
+                    break
+            }
+        } catch (e) {
+            console.log(e)
+            toastError(t('Something went wrong, try again'))
         }
+        await updateBalaces()
     }
 
     return (
@@ -37,12 +74,12 @@ export const TokenInput = ({ className }: IProps) => {
                 <DashboardCell
                     className="w-full"
                     title={t('Balance')}
-                    primaryText={'0'}
+                    primaryText={balance}
                 />
                 <DashboardCell
                     className="w-full"
                     title={t('Staked')}
-                    primaryText={'0'}
+                    primaryText={stacked}
                 />
             </div>
             <div className="mb-4 lg:mb-2">
@@ -61,7 +98,7 @@ export const TokenInput = ({ className }: IProps) => {
                     >
                         {t('Buy')}
                     </Button>
-                    {authType == 'cognito' ? (
+                    {authType == AuthType.Cognito ? (
                         <Button
                             variant="tertiary"
                             active={state == 'Input'}
@@ -85,7 +122,7 @@ export const TokenInput = ({ className }: IProps) => {
                 {state == 'Output' ? (
                     <Input
                         className="my-2 text-xl lg:my-2"
-                        value={amount}
+                        value={recipient}
                         placeholder={t('Recipient') as string}
                         onChange={setRecipient}
                     />
@@ -105,7 +142,7 @@ export const TokenInput = ({ className }: IProps) => {
                     >
                         {t('Sell')}
                     </Button>
-                    {authType == 'cognito' ? (
+                    {authType == AuthType.Cognito ? (
                         <Button
                             variant="tertiary"
                             active={state == 'Output'}

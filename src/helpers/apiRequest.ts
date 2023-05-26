@@ -20,6 +20,7 @@ export const apiRequest = async (
             },
             body: JSON.stringify(body),
         })
+        console.log(response)
         const data = await response.json()
         return data
     }

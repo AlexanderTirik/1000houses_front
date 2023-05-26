@@ -14,6 +14,7 @@ import { AccountContext } from '../context/AccountContext'
 import { ConnectWalletModal } from './Modals/ConnectWalletModal'
 import { WalletContext } from '../context/WalletContext'
 import { AuthContext } from '../context/AuthContext'
+import { AuthType } from '../enums/AuthType'
 
 export const Header = () => {
     const [t] = useTranslation()
@@ -57,7 +58,7 @@ export const Header = () => {
                                 : t('Connect wallet')}
                         </Button>
                     </>
-                ) : authType == 'cognito' ? (
+                ) : authType == AuthType.Cognito ? (
                     <Button
                         onClick={logout}
                         variant="tertiary"
