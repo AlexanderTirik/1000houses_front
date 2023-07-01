@@ -7,7 +7,10 @@ interface IProps {
 }
 export const TeamMember = ({ name, description, labels, photo }: IProps) => (
     <div className="mb-4 flex flex-1 flex-col lg:mx-1 lg:mb-0">
-        <img src={photo} className="mb-1 h-1/2 w-full rounded-2xl" />
+        <img
+            src={photo}
+            className="mb-1 h-1/2 w-full rounded-2xl object-cover"
+        />
         <div className="mb-1">
             <div className="rounded-3xl bg-white px-2 py-3 text-center text-2xl font-semibold text-black dark:bg-gray-700 dark:text-white">
                 {name}

@@ -9,7 +9,6 @@ import {
 } from 'recharts'
 import { ChartTooltip } from './ChartTooltip'
 import { useEffect, useState } from 'react'
-import { ButtonCheckbox } from '@components/ButtonCheckbox'
 
 export const Chart = () => {
     const [theme, setTheme] = useState('light')
@@ -52,6 +51,7 @@ export const Chart = () => {
                 />
                 <YAxis
                     dataKey="cost"
+                    orientation="right"
                     stroke="#7b7b7b"
                     style={{ fontWeight: '500' }}
                     axisLine={false}

@@ -10,11 +10,15 @@ import useToast from '@hooks/useToast'
 import { useTranslation } from 'react-i18next'
 import { useEffectAsync } from '@hooks/useEffectAsync'
 import { AuthContext } from './AuthContext'
+import { getSession } from '../helpers/getSession'
+import { AuthType } from '../enums/AuthType'
+import { PublicKey } from '@solana/web3.js'
 
 interface IWalletContext {
     connectPhantom: () => void
     disconnectPhantom: () => void
     isConnecting: boolean
+    address?: PublicKey
 }
 
 export const WalletContext = createContext({
@@ -29,28 +33,32 @@ interface IProps {
 export const WalletProvider = ({ children }: IProps) => {
     const [t] = useTranslation()
     const [isConnecting, setIsConnecting] = useState(false)
+    const [address, setAddress] = useState()
     const { toastError } = useToast()
     const provider = getPhantomProvider()
     const { updateLoggedIn } = useContext(AuthContext)
 
     const setIsWalletConnected = (state: boolean) => {
-        updateLoggedIn(state, 'wallet')
+        updateLoggedIn(state, AuthType.Wallet)
     }
 
     useEffect(() => {
         if (provider) {
             provider.on('connect', () => {
+                setAddress(getPhantomProvider().publicKey)
                 setIsWalletConnected(true)
             })
 
             provider.on('disconnect', () => {
+                setAddress(undefined)
                 setIsWalletConnected(false)
             })
         }
     }, [provider])
 
     useEffectAsync(async () => {
-        if (provider) {
+        const session = await getSession()
+        if (provider && !session) {
             setIsConnecting(true)
             try {
                 await provider.connect({ onlyIfTrusted: true })
@@ -85,6 +93,7 @@ export const WalletProvider = ({ children }: IProps) => {
                 connectPhantom,
                 disconnectPhantom,
                 isConnecting,
+                address,
             }}
         >
             {children}

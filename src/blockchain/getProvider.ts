@@ -3,6 +3,9 @@ import { getConnection } from './getConnection'
 
 export const getProvider = () => {
     const connection = getConnection()
-    const provider = new AnchorProvider(connection, window.solana, 'confirmed')
+    const provider = new AnchorProvider(connection, window.solana, {
+        preflightCommitment: 'processed',
+        commitment: 'processed',
+    })
     return provider
 }

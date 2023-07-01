@@ -14,6 +14,7 @@ import { AccountContext } from '../context/AccountContext'
 import { ConnectWalletModal } from './Modals/ConnectWalletModal'
 import { WalletContext } from '../context/WalletContext'
 import { AuthContext } from '../context/AuthContext'
+import { AuthType } from '../enums/AuthType'
 
 export const Header = () => {
     const [t] = useTranslation()
@@ -28,7 +29,7 @@ export const Header = () => {
             <LogoIcon />
             <div className="hidden h-full flex-row items-center lg:visible lg:flex">
                 <ThemeSwitch className="w-20 self-stretch" />
-                <LanguageSwitch className="ml-7" />
+                {/* <LanguageSwitch className="ml-7" /> */}
 
                 {!isLoggedIn ? (
                     <>
@@ -57,7 +58,7 @@ export const Header = () => {
                                 : t('Connect wallet')}
                         </Button>
                     </>
-                ) : authType == 'cognito' ? (
+                ) : authType == AuthType.Cognito ? (
                     <Button
                         onClick={logout}
                         variant="tertiary"

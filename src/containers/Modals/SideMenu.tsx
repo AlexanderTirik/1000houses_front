@@ -12,6 +12,7 @@ import { ConnectWalletModal } from './ConnectWalletModal'
 import { WalletContext } from '../../context/WalletContext'
 import { AuthContext } from '../../context/AuthContext'
 import { AccountContext } from '../../context/AccountContext'
+import { AuthType } from '../../enums/AuthType'
 
 interface IProps {}
 export const SideMenu = ({}: IProps) => {
@@ -27,7 +28,7 @@ export const SideMenu = ({}: IProps) => {
         >
             <div>
                 <header className="flex justify-between border-b border-b-white p-6">
-                    <LanguageSwitch />
+                    {/* <LanguageSwitch /> */}
                     <button onClick={hideModal}>
                         <CloseIcon />
                     </button>
@@ -64,7 +65,7 @@ export const SideMenu = ({}: IProps) => {
                                 </Button>
                             </div>
                         </>
-                    ) : authType == 'wallet' ? (
+                    ) : authType == AuthType.Wallet ? (
                         <Button
                             onClick={disconnectPhantom}
                             icon={<WalletIcon />}
