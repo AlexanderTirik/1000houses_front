@@ -10,7 +10,7 @@ export const Dashboard = () => {
     const { isLoggedIn } = useContext(AuthContext)
     const [t, i18n] = useTranslation()
     return (
-        <div className="m-5 flex flex-col items-center justify-center lg:flex-row lg:items-start xl:m-16">
+        <div className="m-5 flex flex-col items-center justify-center lg:flex-row lg:items-end xl:m-16">
             <div className="flex w-full flex-col lg:w-1/2">
                 <div className="flex items-stretch">
                     <DashboardCell
@@ -62,7 +62,9 @@ export const Dashboard = () => {
                     secondaryText="USDC"
                 />
             </div>
-            {isLoggedIn ? <TokenInput className="w-[35%] lg:mx-10" /> : null}
+            {isLoggedIn ? (
+                <TokenInput className="z-10 w-[35%] lg:ml-10 lg:mr-[-15%] lg:bg-gray-100" />
+            ) : null}
             <div className="flex w-full flex-col">
                 <ButtonCheckbox
                     labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
