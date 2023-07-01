@@ -9,9 +9,11 @@ import { useContext, type ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccountContext } from '../context/AccountContext'
 import useToast from '@hooks/useToast'
+import { AuthContext } from '../context/AuthContext'
 const Home = (): ReactElement => {
     const [t, i18n] = useTranslation()
-    const { updateAuthStatus, isLoggedIn } = useContext(AccountContext)
+    const { updateAuthStatus } = useContext(AccountContext)
+    const { isLoggedIn } = useContext(AuthContext)
     const { toastError } = useToast()
     const onReportClick = async () => {
         await updateAuthStatus()
