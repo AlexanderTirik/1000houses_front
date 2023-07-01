@@ -28,7 +28,7 @@ export const SideMenu = ({}: IProps) => {
         >
             <div>
                 <header className="flex justify-between border-b border-b-white p-6">
-                    <LanguageSwitch />
+                    {/* <LanguageSwitch /> */}
                     <button onClick={hideModal}>
                         <CloseIcon />
                     </button>

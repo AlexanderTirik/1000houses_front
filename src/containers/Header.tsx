@@ -29,7 +29,7 @@ export const Header = () => {
             <LogoIcon />
             <div className="hidden h-full flex-row items-center lg:visible lg:flex">
                 <ThemeSwitch className="w-20 self-stretch" />
-                <LanguageSwitch className="ml-7" />
+                {/* <LanguageSwitch className="ml-7" /> */}
 
                 {!isLoggedIn ? (
                     <>
