@@ -1,4 +1,7 @@
 import { TeamMember } from '@components/TeamMember'
+import Alexei from '@assets/photos/Alexei.jpg'
+import Alexander from '@assets/photos/Alexander.jpeg'
+import Oleksandr from '@assets/photos/Oleksandr.jpeg'
 
 export const Team = () => (
     <div className="m-8 flex flex-col lg:mx-16">
@@ -8,29 +11,23 @@ export const Team = () => (
         <div className="flex flex-col justify-center lg:flex-row">
             <TeamMember
                 key="1"
-                name="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc in tincidunt ultricies, enim lectus
-                    ultrices magna, vitae lacinia enim nunc a ligula."
-                labels={['CEO', 'Founder']}
-                photo="https://media.architecturaldigest.com/photos/5abe831a33e2a9249e2c08d0/1:1/w_1632,h_1632,c_limit/GettyImages-544265174.jpg"
+                name="Alexander Gershannik"
+                description={`Alexander is the director of the management company in "1000 houses". He has experience working with Yellow Pages Thompson", "Price Waterhouse", "InterOccidental", has experience as a trust fund manager since 1994. The average value of real estate under trust management is about $ 2.5 million (for 25 years, more than 260 objects).`}
+                labels={['Management company director']}
+                photo={Alexander}
             />
             <TeamMember
                 key="2"
-                name="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc in tincidunt ultricies, enim lectus
-                    ultrices magna, vitae lacinia enim nunc a ligula."
-                labels={['CEO', 'Founder']}
-                photo="https://media.vogue.fr/photos/5c8a55363d44a0083ccbef54/2:3/w_2560%2Cc_limit/GettyImages-625257378.jpg"
+                name="Alexei Tereshuk"
+                description={`Alexei is the manager in "1000 houses". Worked as a manager in companies in Belarus, with about 10 years of entrepreneurial experience, including in international blockchain projects.`}
+                labels={['Manager', 'Founder']}
+                photo={Alexei}
             />
             <TeamMember
-                name="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    euismod, nunc in tincidunt ultricies, enim lectus
-                    ultrices magna, vitae lacinia enim nunc a ligula."
-                labels={['CEO', 'Founder']}
-                photo="https://www.nationalgallery.org.uk/media/30115/gogh-vincent-van-c-face-half.jpg?rxy=0.44407894736842107,0.43656716417910446&width=430&bgcolor=fff&rnd=132138118514970000"
+                name="Oleksandr Tirik"
+                description={`Oleksandr is CTO in "1000 houses". Senior full-stack developer at 8x8 company. Certified cloud developer. More than 5 years as a developer in all kinds of projects from small businesses to enterprises. Active participant in many hackathons and IT events.`}
+                labels={['CTO']}
+                photo={Oleksandr}
             />
         </div>
     </div>
