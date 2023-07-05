@@ -9,12 +9,12 @@ export const AboutProject = () => {
             </div>
             <div className="mx-[5%] rounded-3xl bg-white bg-opacity-80 p-5 text-xl dark:bg-gray-700 dark:bg-opacity-80 dark:text-white lg:ml-[15%] lg:w-1/3">
                 {t(
-                    'Real estate, one of the most conservative markets in the world, as it is one of the benchmarks for reliable investments. Property rentals, the most widespread field of activity of real estate companies. The business is at the other extreme from the current high-risk projects on the blockchain.'
+                    `Our project aims to bring together the conservative and trustworthy real estate market with the modern convenience of blockchain technology. We're introducing a new financial instrument called fast staking, which is available to all users. By purchasing our tokens, buyers will have the opportunity to earn a regular income from real estate rentals`
                 )}
             </div>
             <div className="mx-[5%] mt-2 rounded-3xl bg-white bg-opacity-80 p-5 text-xl dark:bg-gray-700 dark:bg-opacity-80 dark:text-white lg:ml-auto lg:mr-[15%] lg:w-1/3">
                 {t(
-                    'Real estate, one of the most conservative markets in the world, as it is one of the benchmarks for reliable investments. Property rentals, the most widespread field of activity of real estate companies. The business is at the other extreme from the current high-risk projects on the blockchain.'
+                    `Wondering how it works? We've have a management company that takes care of renting out our properties. Every month, this company transfers all the income to our platform's website. Based on the amount of tokens users have staked, the platform automatically redeems a proportional share of those tokens each month. You can purchase staking tokens directly on our platform or through an exchange`
                 )}
             </div>
         </div>
