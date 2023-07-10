@@ -15,6 +15,8 @@ import { ConnectWalletModal } from './Modals/ConnectWalletModal'
 import { WalletContext } from '../context/WalletContext'
 import { AuthContext } from '../context/AuthContext'
 import { AuthType } from '../enums/AuthType'
+import { Link } from 'react-router-dom'
+import { RoutesEnum } from '../enums/RoutesEnum'
 
 export const Header = () => {
     const [t] = useTranslation()
@@ -26,7 +28,9 @@ export const Header = () => {
 
     return (
         <header className="flex h-20 w-full flex-row items-center justify-between border-b border-solid border-white bg-transparent px-8 lg:h-20 lg:px-16">
-            <LogoIcon />
+            <Link to={RoutesEnum.HOME}>
+                <LogoIcon />
+            </Link>
             <div className="hidden h-full flex-row items-center lg:visible lg:flex">
                 <ThemeSwitch className="w-20 self-stretch" />
                 {/* <LanguageSwitch className="ml-7" /> */}
