@@ -1,17 +1,47 @@
 import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Chart } from '@components/Chart/index'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TokenInput } from './TokenInput'
 import { AuthContext } from '../context/AuthContext'
 
-export const Dashboard = () => {
+interface IProps {
+    howToStage?: number
+}
+export const howToBorder =
+    " relative after:absolute after:top-0 after:left-0 after:h-full after:w-full after:rounded-md after:border dark:after:border-white after:border-black after:border-4 after:content-[''] after:border-dashed after:animate-wiggle"
+export const Dashboard = ({ howToStage }: IProps) => {
     const { isLoggedIn } = useContext(AuthContext)
     const [t, i18n] = useTranslation()
+
+    const infoRef = useRef<HTMLDivElement>(null)
+    const chartRef = useRef<HTMLDivElement>(null)
+    const tokenInputRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        switch (howToStage) {
+            case 1:
+                infoRef.current?.scrollIntoView()
+                break
+            case 2:
+                chartRef.current?.scrollIntoView()
+                break
+            case 3:
+                tokenInputRef.current?.scrollIntoView()
+                break
+        }
+    }, [howToStage])
+
     return (
         <div className="m-5 flex flex-col items-center justify-center lg:flex-row lg:items-end xl:m-16">
-            <div className="flex w-full flex-col lg:w-1/2">
+            <div
+                className={
+                    'flex w-full flex-col lg:w-1/2' +
+                    (howToStage == 1 ? howToBorder : '')
+                }
+                ref={infoRef}
+            >
                 <div className="flex items-stretch">
                     <DashboardCell
                         className="flex-1"
@@ -63,9 +93,19 @@ export const Dashboard = () => {
                 />
             </div>
             {isLoggedIn ? (
-                <TokenInput className="z-10 w-[35%] lg:ml-10 lg:mr-[-15%] lg:bg-gray-100" />
+                <TokenInput
+                    ref={tokenInputRef}
+                    className={howToStage == 3 ? howToBorder : ''}
+                    howToStage={howToStage}
+                />
             ) : null}
-            <div className="flex w-full flex-col">
+            <div
+                className={
+                    'flex w-full flex-col' +
+                    (howToStage == 2 ? howToBorder : '')
+                }
+                ref={chartRef}
+            >
                 <ButtonCheckbox
                     labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
                     className="mb-2 justify-end"
