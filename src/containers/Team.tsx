@@ -4,7 +4,7 @@ import Alexander from '@assets/photos/Alexander.jpeg'
 import Oleksandr from '@assets/photos/Oleksandr.jpeg'
 
 export const Team = () => (
-    <div className="m-8 flex flex-col items-center lg:mx-[15%]">
+    <div className="m-8 mx-[15%] flex flex-col items-center">
         <div className="mb-4 w-full text-4xl font-semibold text-black dark:text-white">
             Team
         </div>
