@@ -81,20 +81,20 @@ const Home = (): ReactElement => {
             <PartnersCarousel
                 partners={[
                     {
-                        name: 'Partner 1',
                         image: 'https://cryptologos.cc/logos/solana-sol-logo.png',
+                        name: 'Solana',
                     },
                     {
-                        name: 'Partner 2',
                         image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png',
+                        name: 'Ethereum',
                     },
                     {
-                        name: 'Partner 3',
                         image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png',
+                        name: 'Bitcoin',
                     },
                     {
-                        name: 'Partner 4',
                         image: 'https://s2.coinmarketcap.com/static/img/coins/200x200/825.png',
+                        name: 'Tether',
                     },
                 ]}
             />

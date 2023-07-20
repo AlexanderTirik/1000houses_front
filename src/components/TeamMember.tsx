@@ -1,6 +1,8 @@
+import { ReactElement } from 'react'
+
 interface IProps {
     name: string
-    description: string
+    description: string | ReactElement
     labels: string[]
     photo: string
     key?: string

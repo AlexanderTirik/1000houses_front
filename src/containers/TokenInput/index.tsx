@@ -69,7 +69,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
         return (
             <div
                 className={
-                    'z-10 my-4 w-full rounded-3xl border-y-2 border-y-white py-4 lg:mx-2 lg:my-0 lg:ml-10 lg:mr-[-15%] lg:w-1/2 lg:border-y-0 lg:bg-gray-100 lg:py-0 dark:lg:bg-black' +
+                    'z-10 my-4 w-full rounded-3xl border-y-2 border-y-white py-4 lg:absolute lg:left-0 lg:bottom-0 lg:my-0 lg:w-1/2 lg:border-y-0 lg:bg-gray-100 lg:py-0 dark:lg:bg-black' +
                     className
                 }
                 ref={ref}

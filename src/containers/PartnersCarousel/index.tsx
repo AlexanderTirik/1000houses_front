@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 interface IProps {
     partners: {
         image: string
-        name: string
+        name?: string
     }[]
 }
 export const PartnersCarousel = ({ partners }: IProps) => {

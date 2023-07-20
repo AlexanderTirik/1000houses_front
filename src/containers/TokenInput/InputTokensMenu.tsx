@@ -35,7 +35,7 @@ export const InputTokensMenu = ({ className }: IProps) => {
             <div className="m-2 dark:text-white">
                 {t('To input, send tokens to address below')}
             </div>
-            <div className="my-2 rounded-3xl bg-white p-4 font-semibold dark:bg-gray-700 dark:text-white">
+            <div className="my-2 break-words rounded-3xl bg-white p-4 font-semibold dark:bg-gray-700 dark:text-white">
                 {inputAddress}
             </div>
         </>

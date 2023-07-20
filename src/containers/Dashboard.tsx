@@ -92,25 +92,27 @@ export const Dashboard = ({ howToStage }: IProps) => {
                     secondaryText="USDC"
                 />
             </div>
-            {isLoggedIn ? (
-                <TokenInput
-                    ref={tokenInputRef}
-                    className={howToStage == 3 ? howToBorder : ''}
-                    howToStage={howToStage}
-                />
-            ) : null}
-            <div
-                className={
-                    'flex w-full flex-col' +
-                    (howToStage == 2 ? howToBorder : '')
-                }
-                ref={chartRef}
-            >
-                <ButtonCheckbox
-                    labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
-                    className="mb-2 justify-end"
-                />
-                <Chart />
+            <div className="flex w-full flex-col lg:relative lg:flex-row">
+                {isLoggedIn ? (
+                    <TokenInput
+                        ref={tokenInputRef}
+                        className={howToStage == 3 ? howToBorder : ''}
+                        howToStage={howToStage}
+                    />
+                ) : null}
+                <div
+                    className={
+                        'flex w-full flex-col' +
+                        (howToStage == 2 ? howToBorder : '')
+                    }
+                    ref={chartRef}
+                >
+                    <ButtonCheckbox
+                        labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
+                        className="mb-2 justify-end"
+                    />
+                    <Chart />
+                </div>
             </div>
         </div>
     )

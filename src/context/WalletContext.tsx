@@ -35,12 +35,15 @@ export const WalletProvider = ({ children }: IProps) => {
     const [isConnecting, setIsConnecting] = useState(false)
     const [address, setAddress] = useState()
     const { toastError } = useToast()
-    const provider = getPhantomProvider()
+    let provider = getPhantomProvider()
     const { updateLoggedIn } = useContext(AuthContext)
 
     const setIsWalletConnected = (state: boolean) => {
         updateLoggedIn(state, AuthType.Wallet)
     }
+    useEffect(() => {
+        provider = getPhantomProvider()
+    })
 
     useEffect(() => {
         if (provider) {
