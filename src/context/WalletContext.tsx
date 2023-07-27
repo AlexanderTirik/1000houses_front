@@ -86,8 +86,10 @@ export const WalletProvider = ({ children }: IProps) => {
     }
 
     const disconnectPhantom = async () => {
+        provider = getPhantomProvider()
         if (provider) {
             await provider.disconnect()
+            setIsWalletConnected(false)
         }
     }
     return (
