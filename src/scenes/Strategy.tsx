@@ -8,7 +8,7 @@ export const Strategy = (): ReactElement => {
                 <h1 className="mb-2 text-2xl font-bold">
                     Company growth strategy
                 </h1>
-                <p className="text-lg">
+                <div className="text-lg">
                     Real estate market is known for its stability and consistent
                     income, which means we don't promote excessive speculative
                     growth or quick, unexpected profits.
@@ -97,7 +97,7 @@ export const Strategy = (): ReactElement => {
                     available on the exchange. This mechanism ensures that the
                     property portfolio expands in proportion to the sales of
                     tokens, maintaining a steady growth trajectory.
-                </p>
+                </div>
             </div>
         </PageTemplate>
     )

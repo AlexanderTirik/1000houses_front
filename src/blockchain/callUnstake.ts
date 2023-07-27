@@ -11,7 +11,7 @@ import { getDataPda } from './getDataPda'
 import { getStakePda } from './getStakePda'
 import { signAndSendTransaction } from './signAndSendTransaction'
 
-export const callStake = async (address: PublicKey, amount: string) => {
+export const callUnstake = async (address: PublicKey, amount: string) => {
     const stakeProgram = await getStakeProgram()
     const stakePda = getStakePda(address)
     const dataPda = getDataPda()
@@ -25,7 +25,7 @@ export const callStake = async (address: PublicKey, amount: string) => {
         address
     )
     const tx = await stakeProgram.methods
-        .stake(new BN(amount))
+        .unstake(new BN(amount))
         .accounts({
             tokenProgram: TOKEN_PROGRAM_ID,
             systemProgram: SystemProgram.programId,
@@ -38,5 +38,6 @@ export const callStake = async (address: PublicKey, amount: string) => {
             owner: address,
         })
         .transaction()
+    console.log(tx)
     await signAndSendTransaction(tx, address)
 }

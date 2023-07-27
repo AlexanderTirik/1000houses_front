@@ -60,10 +60,10 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                         break
                 }
             } catch (e) {
-                console.log(e)
-                toastError(t('Something went wrong, try again'))
+                // toastError(t('Something went wrong, try again'))
+            } finally {
+                await updateBalaces()
             }
-            await updateBalaces()
         }
 
         return (

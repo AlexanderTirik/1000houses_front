@@ -4,7 +4,6 @@ import { getConnection } from '../../../blockchain/getConnection'
 import { accounts } from '../../../blockchain/accounts'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { getAddressFromAuth } from '../../../helpers/getAddressFromAuth'
-import { use } from 'i18next'
 
 export const getBalance = async (
     authType: AuthType,

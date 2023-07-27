@@ -63,11 +63,11 @@ export const Dashboard = ({ howToStage }: IProps) => {
                         <span>
                             22
                             <span className="mx-2 text-base font-normal">
-                                January 2023 00:00
+                                July 2023 00:00
                             </span>
                             - 16
                             <span className="ml-2 text-base font-normal">
-                                April 2023 00:00
+                                August 2023 00:00
                             </span>
                         </span>
                     }
