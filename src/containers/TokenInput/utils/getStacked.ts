@@ -16,10 +16,14 @@ export const getStacked = async (address?: PublicKey) => {
         )
         const stakeProgram = await getStakeProgram()
         const { currentRewardIndex } = await getDataPdaData()
-        const { stacked, lastRewardIndex } =
-            await stakeProgram.account.stakePda.fetch(stakePda)
-        if (stacked && lastRewardIndex == currentRewardIndex) {
-            return stacked.toString()
+        try {
+            const { stacked, lastRewardIndex } =
+                await stakeProgram.account.stakePda.fetch(stakePda)
+            if (stacked && lastRewardIndex == currentRewardIndex) {
+                return stacked.toString()
+            }
+        } catch (err) {
+            return '0'
         }
     }
     return '0'

@@ -47,7 +47,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
         >('Buy')
         const [t, i18n] = useTranslation()
 
-        const updateBalaces = async () => {
+        const updateBalances = async () => {
             setBalance(await getBalance(address))
             setStaked(await getStacked(address))
         }
@@ -61,7 +61,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
 
         useEffectAsync(async () => {
             setLoading(true)
-            await updateBalaces()
+            await updateBalances()
             await updateFreeze()
             if (address) {
                 setHasReward(await isAddressHasReward(address))
@@ -93,7 +93,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
             } catch (e) {
                 // toastError(t('Something went wrong, try again'))
             } finally {
-                await updateBalaces()
+                await updateBalances()
                 setLoading(false)
             }
         }
