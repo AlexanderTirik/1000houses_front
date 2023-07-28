@@ -7,7 +7,7 @@ export const signAndSendTransaction = async (
 ) => {
     const connection = getConnection()
     const { blockhash, lastValidBlockHeight } =
-        await connection.getLatestBlockhash()
+        await connection.getLatestBlockhash('finalized')
     transaction.recentBlockhash = blockhash
     transaction.feePayer = signer
     const signedTx = await window.solana.signTransaction(transaction)

@@ -1,10 +1,14 @@
 import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Chart } from '@components/Chart/index'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TokenInput } from './TokenInput'
 import { AuthContext } from '../context/AuthContext'
+import { useEffectAsync } from '@hooks/useEffectAsync'
+import { getPrevReward } from '../blockchain/getPrevReward'
+import { getPrevStaked } from '../blockchain/getPrevStaked'
+import { getStaked } from '../blockchain/getStaked'
 
 interface IProps {
     howToStage?: number
@@ -14,10 +18,23 @@ export const howToBorder =
 export const Dashboard = ({ howToStage }: IProps) => {
     const { isLoggedIn } = useContext(AuthContext)
     const [t, i18n] = useTranslation()
+    const [loading, setLoading] = useState(false)
 
     const infoRef = useRef<HTMLDivElement>(null)
     const chartRef = useRef<HTMLDivElement>(null)
     const tokenInputRef = useRef<HTMLDivElement>(null)
+
+    const [lastPaymentAmount, setLastPaymentAmount] = useState('0')
+    const [currentHold, setCurrentHold] = useState('0')
+    const [lastHold, setLastHold] = useState('0')
+
+    useEffectAsync(async () => {
+        setLoading(true)
+        setLastPaymentAmount(await getPrevReward())
+        setCurrentHold(await getStaked())
+        setLastHold(await getPrevStaked())
+        setLoading(false)
+    }, [])
 
     useEffect(() => {
         switch (howToStage) {
@@ -76,19 +93,22 @@ export const Dashboard = ({ howToStage }: IProps) => {
                     <DashboardCell
                         className="flex-1"
                         title={t('Last Hold Volume')}
-                        primaryText="360 000"
+                        primaryText={lastHold}
+                        isLoading={loading}
                         variant="C"
                     />
                     <DashboardCell
                         className="flex-1"
                         title={t('Current Hold')}
-                        primaryText="1 000"
+                        primaryText={currentHold}
+                        isLoading={loading}
                         variant="D"
                     />
                 </div>
                 <DashboardCell
                     title={t('Last Payment Amount')}
-                    primaryText="3500"
+                    primaryText={lastPaymentAmount}
+                    isLoading={loading}
                     secondaryText="USDC"
                 />
             </div>

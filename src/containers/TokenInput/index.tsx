@@ -1,5 +1,5 @@
 import { Input } from '@components/Input'
-import { RefObject, forwardRef, useContext, useState } from 'react'
+import { RefObject, forwardRef, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
 import { Button } from '@components/Button'
@@ -16,6 +16,11 @@ import { onStakeClick } from './utils/onStakeClick'
 import { onUnstakeClick } from './utils/onUnstakeClick'
 import useToast from '@hooks/useToast'
 import { howToBorder } from '@containers/Dashboard'
+import { getStakingFreeze } from '../../blockchain/getStakingFreeze'
+import { isAddressHasReward } from '../../blockchain/isAddressHasReward'
+import { onClaimRewardClick } from './utils/onClaimRewardClick'
+import { getAddressFromAuth } from '../../helpers/getAddressFromAuth'
+import { PublicKey } from '@solana/web3.js'
 
 interface IProps {
     className?: string
@@ -25,28 +30,55 @@ interface IProps {
 export const TokenInput = forwardRef<HTMLDivElement, IProps>(
     ({ className, howToStage }: IProps, ref) => {
         const { authType } = useContext(AuthContext)
-        const { address } = useContext(WalletContext)
+        const { address: walletAdress } = useContext(WalletContext)
+        const [loading, setLoading] = useState(false)
         const { email } = useContext(AccountContext)
         const { toastError } = useToast()
         const [amount, setAmount] = useState('')
+        const [address, setAddress] = useState(
+            getAddressFromAuth(authType, email, walletAdress)
+        )
         const [recipient, setRecipient] = useState('')
         const [balance, setBalance] = useState('0')
         const [stacked, setStaked] = useState('0')
+        const [stakingFreezed, setStakingFreezed] = useState(false)
+        const [hasReward, setHasReward] = useState(false)
         const [state, setState] = useState<
             'Stake' | 'Buy' | 'Input' | 'Unstake' | 'Sell' | 'Output'
-        >('Stake')
+        >('Buy')
         const [t, i18n] = useTranslation()
 
         const updateBalaces = async () => {
-            setBalance(await getBalance(authType, email, address))
-            setStaked(await getStacked(authType, email, address))
+            setBalance(await getBalance(address))
+            setStaked(await getStacked(address))
+        }
+        const updateFreeze = async () => {
+            setStakingFreezed(await getStakingFreeze())
         }
 
+        useEffect(() => {
+            setAddress(getAddressFromAuth(authType, email, walletAdress))
+        }, [email, walletAdress])
+
         useEffectAsync(async () => {
+            setLoading(true)
             await updateBalaces()
+            await updateFreeze()
+            if (address) {
+                setHasReward(await isAddressHasReward(address))
+            }
+            setLoading(false)
         }, [])
 
+        const onClaimReward = async () => {
+            if (address) {
+                await onClaimRewardClick(authType, address)
+                setHasReward(await isAddressHasReward(address))
+            }
+        }
+
         const onSubmit = async () => {
+            setLoading(true)
             try {
                 switch (state) {
                     case 'Stake':
@@ -63,6 +95,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                 // toastError(t('Something went wrong, try again'))
             } finally {
                 await updateBalaces()
+                setLoading(false)
             }
         }
 
@@ -74,6 +107,15 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                 }
                 ref={ref}
             >
+                {hasReward ? (
+                    <Button
+                        className="mx-auto my-2 text-2xl"
+                        onClick={onClaimReward}
+                    >
+                        Claim reward
+                    </Button>
+                ) : null}
+
                 <div
                     className={
                         'mb-2 flex flex-row ' +
@@ -81,6 +123,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                     }
                 >
                     <DashboardCell
+                        isLoading={loading}
                         className="w-full"
                         title={t('Balance')}
                         primaryText={
@@ -92,6 +135,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                         }
                     />
                     <DashboardCell
+                        isLoading={loading}
                         className="w-full"
                         title={t('Staked')}
                         primaryText={
@@ -103,6 +147,12 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                         }
                     />
                 </div>
+                {stakingFreezed ? (
+                    <div className="mb-2 text-center text-xl font-semibold dark:text-white">
+                        Staking freezed
+                    </div>
+                ) : null}
+
                 <div
                     className={
                         'mb-4 lg:mb-2' + (howToStage == 5 ? howToBorder : null)
@@ -111,6 +161,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                     <div className="flex justify-around">
                         <Button
                             variant="tertiary"
+                            disabled={stakingFreezed}
                             active={state == 'Stake'}
                             onClick={() => setState('Stake')}
                         >
@@ -154,6 +205,7 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                     ) : null}
                     <div className="flex justify-around">
                         <Button
+                            disabled={stakingFreezed}
                             variant="tertiary"
                             active={state == 'Unstake'}
                             onClick={() => setState('Unstake')}

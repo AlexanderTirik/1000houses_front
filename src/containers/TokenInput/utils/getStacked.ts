@@ -6,21 +6,19 @@ import { getConnection } from '../../../blockchain/getConnection'
 import { AuthType } from '../../../enums/AuthType'
 import { getAddressFromAuth } from '../../../helpers/getAddressFromAuth'
 import { getStakeProgram } from '../../../blockchain/getStakeProgram'
+import { getDataPdaData } from '../../../blockchain/getDataPdaData'
 
-export const getStacked = async (
-    authType: AuthType,
-    email?: string,
-    address?: PublicKey
-) => {
-    const userWalletAddress = getAddressFromAuth(authType, email, address)
-    if (userWalletAddress) {
+export const getStacked = async (address?: PublicKey) => {
+    if (address) {
         const [stakePda] = PublicKey.findProgramAddressSync(
-            [Buffer.from('stake', 'utf8'), userWalletAddress.toBuffer()],
+            [Buffer.from('stake', 'utf8'), address.toBuffer()],
             accounts.programs.stake
         )
         const stakeProgram = await getStakeProgram()
-        const { stacked } = await stakeProgram.account.stakePda.fetch(stakePda)
-        if (stacked) {
+        const { currentRewardIndex } = await getDataPdaData()
+        const { stacked, lastRewardIndex } =
+            await stakeProgram.account.stakePda.fetch(stakePda)
+        if (stacked && lastRewardIndex == currentRewardIndex) {
             return stacked.toString()
         }
     }
