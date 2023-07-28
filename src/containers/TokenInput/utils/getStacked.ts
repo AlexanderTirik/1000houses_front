@@ -1,10 +1,5 @@
-import * as anchor from '@coral-xyz/anchor'
-import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { PublicKey } from '@solana/web3.js'
 import { accounts } from '../../../blockchain/accounts'
-import { getConnection } from '../../../blockchain/getConnection'
-import { AuthType } from '../../../enums/AuthType'
-import { getAddressFromAuth } from '../../../helpers/getAddressFromAuth'
 import { getStakeProgram } from '../../../blockchain/getStakeProgram'
 import { getDataPdaData } from '../../../blockchain/getDataPdaData'
 
