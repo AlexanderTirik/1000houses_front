@@ -13,6 +13,8 @@ import { AuthContext } from './AuthContext'
 import { getSession } from '../helpers/getSession'
 import { AuthType } from '../enums/AuthType'
 import { PublicKey } from '@solana/web3.js'
+import { setProvider } from '@coral-xyz/anchor'
+import { getProvider } from '../blockchain/getProvider'
 
 interface IWalletContext {
     connectPhantom: () => void
@@ -49,6 +51,7 @@ export const WalletProvider = ({ children }: IProps) => {
         if (provider) {
             provider.on('connect', () => {
                 setAddress(getPhantomProvider().publicKey)
+                setProvider(getProvider())
                 setIsWalletConnected(true)
             })
 
