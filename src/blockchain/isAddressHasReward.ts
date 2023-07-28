@@ -6,14 +6,13 @@ import { getStakeProgram } from './getStakeProgram'
 export const isAddressHasReward = async (address: PublicKey) => {
     const stakeProgram = await getStakeProgram()
     const stakePda = getStakePda(address)
-    const { currentRewardIndex } = await getDataPdaData()
+    const { rewardIndex } = await getDataPdaData()
     const { stacked, lastRewardIndex } =
         await stakeProgram.account.stakePda.fetch(stakePda)
-    console.log(lastRewardIndex)
     if (
         stacked &&
         stacked.toNumber() > 0 &&
-        lastRewardIndex + 1 == currentRewardIndex
+        lastRewardIndex + 1 == rewardIndex
     ) {
         return true
     }

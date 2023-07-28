@@ -20,7 +20,6 @@ import { getStakingFreeze } from '../../blockchain/getStakingFreeze'
 import { isAddressHasReward } from '../../blockchain/isAddressHasReward'
 import { onClaimRewardClick } from './utils/onClaimRewardClick'
 import { getAddressFromAuth } from '../../helpers/getAddressFromAuth'
-import { PublicKey } from '@solana/web3.js'
 
 interface IProps {
     className?: string
@@ -205,7 +204,6 @@ export const TokenInput = forwardRef<HTMLDivElement, IProps>(
                     ) : null}
                     <div className="flex justify-around">
                         <Button
-                            disabled={stakingFreezed}
                             variant="tertiary"
                             active={state == 'Unstake'}
                             onClick={() => setState('Unstake')}

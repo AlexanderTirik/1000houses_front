@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { TokenInput } from './TokenInput'
 import { AuthContext } from '../context/AuthContext'
 import { useEffectAsync } from '@hooks/useEffectAsync'
-import { getPrevReward } from '../blockchain/getPrevReward'
+import { getReward } from '../blockchain/getReward'
 import { getPrevStaked } from '../blockchain/getPrevStaked'
 import { getStaked } from '../blockchain/getStaked'
 
@@ -30,7 +30,7 @@ export const Dashboard = ({ howToStage }: IProps) => {
 
     useEffectAsync(async () => {
         setLoading(true)
-        setLastPaymentAmount(await getPrevReward())
+        setLastPaymentAmount(await getReward())
         setCurrentHold(await getStaked())
         setLastHold(await getPrevStaked())
         setLoading(false)
