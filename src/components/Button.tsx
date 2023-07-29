@@ -21,7 +21,7 @@ export const Button = ({
 }: IProps) => {
     const styles = {
         button: {
-            primary: `bg-blue text-white disabled:cursor-not-allowed disabled:text-gray-400 `,
+            primary: `bg-blue text-white disabled:cursor-not-allowed disabled:text-gray-400 hover:bg-light-blue transition `,
             secondary: `bg-white
                 text-black
                 dark:text-white

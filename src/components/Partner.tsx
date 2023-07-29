@@ -5,7 +5,7 @@ import { DecorationDIcon } from '@assets/icons/carousel/DecorationDIcon'
 
 interface IProps {
     image: string
-    name: string
+    name?: string
     variant: 1 | 2 | 3 | 4
 }
 export const Partner = ({ image, name, variant }: IProps) => {
@@ -44,9 +44,9 @@ export const Partner = ({ image, name, variant }: IProps) => {
         }
     }
     return (
-        <div className="relative flex w-[200px] flex-col items-center justify-center rounded-3xl bg-white p-4 dark:bg-gray-700 dark:text-white">
+        <div className="relative flex min-h-[90px] w-[200px] flex-col items-center justify-center rounded-3xl bg-white p-4 dark:bg-gray-700 dark:text-white">
             <img src={image} className="mb-1 h-12 rounded-2xl" />
-            <div className="text-2xl font-semibold">{name}</div>
+            {name ? <div className="text-2xl font-semibold">{name}</div> : null}
             {renderDecoration()}
         </div>
     )

@@ -3,6 +3,15 @@ module.exports = {
     darkMode: 'class',
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
+        keyframes: {
+            wiggle: {
+                '0%, 100%': { transform: 'rotate(-1deg)' },
+                '50%': { transform: 'rotate(1deg)' },
+            },
+        },
+        animation: {
+            wiggle: 'wiggle 1s ease-in-out infinite',
+        },
         extend: {
             backgroundImage: {
                 'home-light': "url('/HomeLightBackground.png')",

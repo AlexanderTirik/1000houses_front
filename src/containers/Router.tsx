@@ -7,11 +7,17 @@ import { ToastContainer } from 'react-toastify'
 import { ThemeProvider } from '../context/ThemeContext'
 import { WalletProvider } from '../context/WalletContext'
 import { AuthProvider } from '../context/AuthContext'
+import { RoutesEnum } from '../enums/RoutesEnum'
+import { Strategy } from '@scenes/Strategy'
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: RoutesEnum.HOME,
         element: <Home />,
+    },
+    {
+        path: RoutesEnum.STRATEGY,
+        element: <Strategy />,
     },
 ])
 export const Router = () => {

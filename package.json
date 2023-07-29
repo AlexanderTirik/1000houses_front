@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.27.0",
+        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
         "@solana/spl-token": "^0.3.7",
         "@solana/web3.js": "^1.76.0",
         "amazon-cognito-identity-js": "^6.2.0",
@@ -23,6 +24,7 @@
         "react-router-dom": "^6.9.0",
         "react-toastify": "^9.1.2",
         "recharts": "^2.5.0",
+        "rollup-plugin-polyfill-node": "^0.12.0",
         "vite-tsconfig-paths": "^4.0.7"
     },
     "devDependencies": {

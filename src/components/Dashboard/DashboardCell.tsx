@@ -1,3 +1,4 @@
+import { LoadingIcon } from '@assets/icons/LoadingIcon'
 import { DecorationAIcon } from '@assets/icons/dasboard/DecorationAIcon'
 import { DecorationBIcon } from '@assets/icons/dasboard/DecorationBIcon'
 import { DecorationCIcon } from '@assets/icons/dasboard/DecorationCIcon'
@@ -5,6 +6,7 @@ import { ReactElement, cloneElement } from 'react'
 
 interface IProps {
     className?: string
+    isLoading?: boolean
     title: string
     primaryText: string | ReactElement
     secondaryText?: string
@@ -15,6 +17,7 @@ export const DashboardCell = ({
     title,
     primaryText,
     secondaryText,
+    isLoading = false,
     variant,
 }: IProps) => {
     const renderDecoration = () => {
@@ -64,14 +67,20 @@ export const DashboardCell = ({
                 {title}
             </div>
             <div className="z-10">
-                <span className="text-2xl font-semibold dark:text-white lg:text-3xl">
-                    {primaryText}
-                </span>
-                {secondaryText ? (
-                    <span className="ml-2 text-base text-gray-400">
-                        {secondaryText}
-                    </span>
-                ) : null}
+                {isLoading ? (
+                    <LoadingIcon className="h-[29px] lg:h-[36px]" />
+                ) : (
+                    <>
+                        <span className="text-2xl font-semibold dark:text-white lg:text-3xl">
+                            {primaryText}
+                        </span>
+                        {secondaryText ? (
+                            <span className="ml-2 text-base text-gray-400">
+                                {secondaryText}
+                            </span>
+                        ) : null}
+                    </>
+                )}
             </div>
         </div>
     )

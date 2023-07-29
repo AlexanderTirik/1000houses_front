@@ -11,12 +11,11 @@ export const onStakeClick = async (
 ) => {
     // TODO check amount
     if (authType == AuthType.Cognito) {
-        const response = await apiRequest('stake', HttpMethod.POST, {
+        await apiRequest('stake', HttpMethod.POST, {
             amount,
         })
-        console.log(response)
     }
     if (authType == AuthType.Wallet && address) {
-        callStake(address, amount)
+        await callStake(address, amount)
     }
 }

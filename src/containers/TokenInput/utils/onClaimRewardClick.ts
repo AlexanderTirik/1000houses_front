@@ -1,21 +1,17 @@
 import { PublicKey } from '@solana/web3.js'
 import { AuthType } from '../../../enums/AuthType'
+import { callClaimReward } from '../../../blockchain/callClaimReward'
 import { HttpMethod } from '../../../enums/HttpMethods'
 import { apiRequest } from '../../../helpers/apiRequest'
-import { callUnstake } from '../../../blockchain/callUnstake'
 
-export const onUnstakeClick = async (
+export const onClaimRewardClick = async (
     authType: AuthType,
-    amount: string,
     address?: PublicKey
 ) => {
-    // TODO check amount
     if (authType == AuthType.Cognito) {
-        await apiRequest('unstake', HttpMethod.POST, {
-            amount,
-        })
+        await apiRequest('claimReward', HttpMethod.POST, {})
     }
     if (authType == AuthType.Wallet && address) {
-        await callUnstake(address, amount)
+        await callClaimReward(address)
     }
 }

@@ -1,4 +1,4 @@
-import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js'
+import { Connection, clusterApiUrl } from '@solana/web3.js'
 import { env } from '../helpers/env'
 
 export const getConnection = () => {

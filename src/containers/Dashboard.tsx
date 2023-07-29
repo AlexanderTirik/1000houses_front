@@ -1,17 +1,64 @@
 import { ButtonCheckbox } from '@components/ButtonCheckbox'
 import { Chart } from '@components/Chart/index'
 import { DashboardCell } from '@components/Dashboard/DashboardCell'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TokenInput } from './TokenInput'
 import { AuthContext } from '../context/AuthContext'
+import { useEffectAsync } from '@hooks/useEffectAsync'
+import { getReward } from '../blockchain/getReward'
+import { getPrevStaked } from '../blockchain/getPrevStaked'
+import { getStaked } from '../blockchain/getStaked'
 
-export const Dashboard = () => {
+interface IProps {
+    howToStage?: number
+}
+export const howToBorder =
+    " relative after:absolute after:top-0 after:left-0 after:h-full after:w-full after:rounded-md after:border dark:after:border-white after:border-black after:border-4 after:content-[''] after:border-dashed after:animate-wiggle"
+export const Dashboard = ({ howToStage }: IProps) => {
     const { isLoggedIn } = useContext(AuthContext)
     const [t, i18n] = useTranslation()
+    const [loading, setLoading] = useState(false)
+
+    const infoRef = useRef<HTMLDivElement>(null)
+    const chartRef = useRef<HTMLDivElement>(null)
+    const tokenInputRef = useRef<HTMLDivElement>(null)
+
+    const [lastPaymentAmount, setLastPaymentAmount] = useState('0')
+    const [currentHold, setCurrentHold] = useState('0')
+    const [lastHold, setLastHold] = useState('0')
+
+    useEffectAsync(async () => {
+        setLoading(true)
+        setLastPaymentAmount(await getReward())
+        setCurrentHold(await getStaked())
+        setLastHold(await getPrevStaked())
+        setLoading(false)
+    }, [])
+
+    useEffect(() => {
+        switch (howToStage) {
+            case 1:
+                infoRef.current?.scrollIntoView()
+                break
+            case 2:
+                chartRef.current?.scrollIntoView()
+                break
+            case 3:
+                tokenInputRef.current?.scrollIntoView()
+                break
+        }
+    }, [howToStage])
+
     return (
         <div className="m-5 flex flex-col items-center justify-center lg:flex-row lg:items-end xl:m-16">
-            <div className="flex w-full flex-col lg:w-1/2">
+            <div
+                className={
+                    'flex w-full flex-col lg:w-1/2' +
+                    (howToStage == 1 ? howToBorder : '')
+                }
+                ref={infoRef}
+            >
                 <div className="flex items-stretch">
                     <DashboardCell
                         className="flex-1"
@@ -33,11 +80,11 @@ export const Dashboard = () => {
                         <span>
                             22
                             <span className="mx-2 text-base font-normal">
-                                January 2023 00:00
+                                July 2023 00:00
                             </span>
                             - 16
                             <span className="ml-2 text-base font-normal">
-                                April 2023 00:00
+                                August 2023 00:00
                             </span>
                         </span>
                     }
@@ -46,31 +93,46 @@ export const Dashboard = () => {
                     <DashboardCell
                         className="flex-1"
                         title={t('Last Hold Volume')}
-                        primaryText="360 000"
+                        primaryText={lastHold}
+                        isLoading={loading}
                         variant="C"
                     />
                     <DashboardCell
                         className="flex-1"
                         title={t('Current Hold')}
-                        primaryText="1 000"
+                        primaryText={currentHold}
+                        isLoading={loading}
                         variant="D"
                     />
                 </div>
                 <DashboardCell
                     title={t('Last Payment Amount')}
-                    primaryText="3500"
+                    primaryText={lastPaymentAmount}
+                    isLoading={loading}
                     secondaryText="USDC"
                 />
             </div>
-            {isLoggedIn ? (
-                <TokenInput className="z-10 w-[35%] lg:ml-10 lg:mr-[-15%] lg:bg-gray-100" />
-            ) : null}
-            <div className="flex w-full flex-col">
-                <ButtonCheckbox
-                    labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
-                    className="mb-2 justify-end"
-                />
-                <Chart />
+            <div className="flex w-full flex-col lg:relative lg:flex-row">
+                {isLoggedIn ? (
+                    <TokenInput
+                        ref={tokenInputRef}
+                        className={howToStage == 3 ? howToBorder : ''}
+                        howToStage={howToStage}
+                    />
+                ) : null}
+                <div
+                    className={
+                        'flex w-full flex-col' +
+                        (howToStage == 2 ? howToBorder : '')
+                    }
+                    ref={chartRef}
+                >
+                    <ButtonCheckbox
+                        labels={[t('Day'), t('Week'), t('Month'), t('Year')]}
+                        className="mb-2 justify-end"
+                    />
+                    <Chart />
+                </div>
             </div>
         </div>
     )
