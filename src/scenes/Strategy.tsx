@@ -96,11 +96,10 @@ export const Strategy = (): ReactElement => {
                     speculative activity, we will have the opportunity to
                     capitalize on this by selling more tokens at favorable
                     prices. This would allow us to acquire additional
-                    properties. Conversely, if the speculative fervor subsides,
-                    we'll still have higher token returns than when the boom
-                    began. This unique approach sets our project apart,
-                    rendering it resilient against adverse shifts in market
-                    sentiment.
+                    properties. And, if the speculative fervor subsides, we'll
+                    still have higher token returns than when the boom began.
+                    This unique approach sets our project apart, rendering it
+                    resilient against adverse shifts in market sentiment.
                     <br />
                     We're not just weathering market swings; we're leveraging
                     them to fuel effective company growth. Each speculative
