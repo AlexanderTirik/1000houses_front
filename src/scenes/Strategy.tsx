@@ -127,11 +127,12 @@ export const Strategy = (): ReactElement => {
                         <br />
                         Second-round investors will experience a tangible token
                         growth potential of 5 times (calculated as 500 assets
-                        divided by 50 and further divided by the second round),
-                        all within a condensed timeframe of one year. This
-                        growth is underpinned by heightened reliability,
-                        bolstered by the presence of an operational platform and
-                        an established management company.
+                        divided by 50 and further divided by the coefficient of
+                        increase in the number of tokens in circulation), all
+                        within a condensed timeframe of one year. This growth is
+                        underpinned by heightened reliability, bolstered by the
+                        presence of an operational platform and an established
+                        management company.
                         <br />
                         <br />
                         Third-round investors will gain both real estate control
