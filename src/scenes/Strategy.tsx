@@ -9,20 +9,19 @@ export const Strategy = (): ReactElement => {
                     Company growth strategy
                 </h1>
                 <div className="text-lg">
-                    We recognize that the real estate market's strength is
-                    accompanied by its conservative returns, a quality we aim to
-                    provide. Instead of relying on fleeting speculative booms
-                    like some other projects, our strategy revolves around
-                    offering the steadfastness characteristic of the broader
-                    crypto asset market. This means that our token won't be as
-                    vulnerable to external shocks as others. This resilience
-                    stems from the token's consistent income source through real
-                    estate rentals.
-                    <br /> As a result, our objective is to gradually establish
-                    ourselves as the epitome of reliability in the global
-                    market. Our commitment to stable and dependable growth sets
-                    us apart and paves the way for us to become a beacon of
-                    trust.
+                    The strength of the real estate market is paired with its
+                    moderate returns, a quality we intend to embrace,
+                    contrasting with the short-lived speculative surges pursued
+                    by other projects. Our strategy is to present a level of
+                    reliability that is not typical of the crypto asset market,
+                    ensuring that our token remains less vulnerable to external
+                    shocks compared to others.
+                    <br />
+                    This durability is derived from our approach: the token will
+                    consistently benefit from the stable income generated
+                    through real estate rentals. Consequently, our long-term
+                    goal is to establish ourselves as the foremost emblem of
+                    reliability in the global crypto assets landscape!
                     <br />
                     <br /> Simultaneously, we present a compelling rationale for
                     investing in our token with the aim of achieving substantial
