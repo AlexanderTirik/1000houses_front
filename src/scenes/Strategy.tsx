@@ -125,7 +125,7 @@ export const Strategy = (): ReactElement => {
                         tailored to them.
                         <br />
                         <br />
-                        Second-round investors will experience a tangible token
+                        Second-round investors will experience a real token
                         growth potential of 5 times (calculated as 500 assets
                         divided by 50 and further divided by the coefficient of
                         increase in the number of tokens in circulation), all
