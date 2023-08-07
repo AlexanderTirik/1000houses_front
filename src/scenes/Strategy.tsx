@@ -29,8 +29,7 @@ export const Strategy = (): ReactElement => {
                     units, while the housing stock's potential is boundless.
                     Consequently, the staking rewards for each token will
                     experience continuous growth over time, correlating with an
-                    increase in its exchange value. The extent of this growth
-                    and our approach to attaining it are key considerations.
+                    increase in its exchange value.
                     <br />
                     <br /> How do we plan to achieve this? <br />
                     The total emission of tokens will be divided into three
