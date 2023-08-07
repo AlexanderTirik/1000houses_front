@@ -9,25 +9,29 @@ export const Strategy = (): ReactElement => {
                     Company growth strategy
                 </h1>
                 <div className="text-lg">
-                    Real estate market is known for its stability and consistent
-                    income, which means we don't promote excessive speculative
-                    growth or quick, unexpected profits.
+                    We recognize that the real estate market's strength is
+                    accompanied by its conservative returns, a quality we aim to
+                    provide. Instead of relying on fleeting speculative booms
+                    like some other projects, our strategy revolves around
+                    offering the steadfastness characteristic of the broader
+                    crypto asset market. This means that our token won't be as
+                    vulnerable to external shocks as others. This resilience
+                    stems from the token's consistent income source through real
+                    estate rentals.
+                    <br /> As a result, our objective is to gradually establish
+                    ourselves as the epitome of reliability in the global
+                    market. Our commitment to stable and dependable growth sets
+                    us apart and paves the way for us to become a beacon of
+                    trust.
                     <br />
-                    <br />
-                    Our strategy is to provide a high level of reliability for
-                    the entire crypto asset market with the added advantage of
-                    our token being less susceptible to external shocks. This is
-                    because our token is backed by stable income from real
-                    estate. As a result, we aim to establish ourselves as the
-                    most trustworthy and dependable token in the world over
-                    time!
-                    <br />
-                    <br /> We provide a compelling reason for long-term
-                    investment in our token. With a total token supply of 20
-                    billion and an unlimited volume for our fund, we ensure a
-                    consistent staking yield per token over time. As a result,
-                    the token's price on the stock exchange is expected to rise
-                    steadily.
+                    <br /> Simultaneously, we present a compelling rationale for
+                    investing in our token with the aim of achieving substantial
+                    profits. The token's total supply stands at 20 billion
+                    units, while the housing stock's potential is boundless.
+                    Consequently, the staking rewards for each token will
+                    experience continuous growth over time, correlating with an
+                    increase in its exchange value. The extent of this growth
+                    and our approach to attaining it are key considerations.
                     <br />
                     <br /> How do we plan to achieve this? <br />
                     The total emission of tokens will be divided into three
