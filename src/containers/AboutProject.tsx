@@ -9,7 +9,7 @@ export const AboutProject = () => {
             </div>
             <div className="mx-[5%] rounded-3xl bg-white bg-opacity-80 p-5 text-xl dark:bg-gray-700 dark:bg-opacity-80 dark:text-white lg:ml-[15%] lg:w-1/3">
                 <Trans
-                    i18nKey={`Our project aims to bring together the conservative and trustworthy real estate market with the modern convenience of blockchain technology. We're introducing a new financial instrument called <i>fast staking</i>, which is available to all users. By purchasing our tokens, buyers will have the opportunity to earn a regular income from real estate rentals. Unlike regular staking, fast-staking does not require users to freeze tokens for a long time, which makes it more convenient`}
+                    i18nKey={`Our project aims to bring together the conservative and trustworthy real estate market with the modern convenience of blockchain technology. We're introducing a new financial instrument called <i>fast staking</i>, which is available to all users. By purchasing our tokens, buyers will have the opportunity to earn a regular income from real estate rentals. Unlike regular staking, <i>fast-staking</i> does not require users to freeze tokens for a long time, which makes it more convenient`}
                 />
             </div>
             <div className="mx-[5%] mt-2 rounded-3xl bg-white bg-opacity-80 p-5 text-xl dark:bg-gray-700 dark:bg-opacity-80 dark:text-white lg:ml-auto lg:mr-[15%] lg:w-1/3">
