@@ -39,7 +39,7 @@ export const Footer = () => {
             <FooterList
                 key={'Contact'}
                 title={t('Contact')}
-                names={[t('Blog'), 'sasha.tirik@gmail.com']}
+                names={[t('Blog'), 'email@gmail.com']}
             />
             <FooterList
                 key={'Documentation'}
